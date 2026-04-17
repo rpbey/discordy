@@ -5,9 +5,6 @@
  * -------------------------------------------------------------------------------------------------------
  */
 
-import type { IncomingMessage } from "node:http";
-import WebSocket from "ws";
-
 import type { BaseNode } from "../base/base-node.js";
 import { type Backoff, exponential } from "./backoff.js";
 
@@ -24,8 +21,12 @@ interface Headers {
 /**
  * Interface representing connection options.
  */
-export interface ConnectionOptions extends WebSocket.ClientOptions {
+export interface ConnectionOptions {
   sessionId?: string;
+  /** Additional headers to pass on the WebSocket handshake (Bun-native) */
+  headers?: Record<string, string>;
+  /** Subprotocols */
+  protocols?: string | string[];
 }
 
 /**
@@ -41,40 +42,46 @@ export class Connection<T extends BaseNode = BaseNode> {
   public ws!: WebSocket;
   private _backoff!: Backoff;
 
-  private _listeners = {
-    close: (code: number, reason: string) => {
-      this.node.emit("close", code, reason);
-      this._reconnect();
-    },
-    error: (err: any) => {
-      this.node.emit("error", err);
-      this._reconnect();
-    },
-    message: (d: WebSocket.Data) => {
-      if (Array.isArray(d)) {
-        d = Buffer.concat(d);
-      } else if (d instanceof ArrayBuffer) {
-        d = Buffer.from(d);
-      }
+  // Track which event-listener wrappers are registered per event name
+  private _registeredListeners = new Map<
+    string,
+    EventListenerOrEventListenerObject
+  >();
 
-      let pk: any;
-      try {
-        pk = JSON.parse(d.toString());
-      } catch (e) {
-        this.node.emit("error", e);
-        return;
-      }
+  private _onClose = (event: CloseEvent) => {
+    this.node.emit("close", event.code, event.reason);
+    this._reconnect();
+  };
 
-      if (pk.guildId && this.node.guildPlayerStore.has(pk.guildId)) {
-        this.node.guildPlayerStore.get(pk.guildId).emit(pk.op, pk);
-      }
-      this.node.emit(pk.op, pk);
-    },
-    open: () => {
-      this.backoff.reset();
-      this.node.emit("open");
-    },
-    upgrade: (req: IncomingMessage) => this.node.emit("upgrade", req),
+  private _onError = (event: Event) => {
+    this.node.emit("error", event);
+    this._reconnect();
+  };
+
+  private _onMessage = (event: MessageEvent) => {
+    const raw: string | ArrayBuffer = event.data as string | ArrayBuffer;
+
+    let pk: any;
+    try {
+      const text =
+        typeof raw === "string"
+          ? raw
+          : new TextDecoder().decode(raw);
+      pk = JSON.parse(text);
+    } catch (e) {
+      this.node.emit("error", e);
+      return;
+    }
+
+    if (pk.guildId && this.node.guildPlayerStore.has(pk.guildId)) {
+      this.node.guildPlayerStore.get(pk.guildId).emit(pk.op, pk);
+    }
+    this.node.emit(pk.op, pk);
+  };
+
+  private _onOpen = () => {
+    this.backoff.reset();
+    this.node.emit("open");
   };
 
   /**
@@ -136,7 +143,16 @@ export class Connection<T extends BaseNode = BaseNode> {
       headers["Session-Id"] = this.sessionId;
     }
 
-    this.ws = new WebSocket(this.url, Object.assign({ headers }, this.options));
+    // Bun's global WebSocket supports a headers option in the init object
+    const init: Record<string, unknown> = {
+      headers: Object.assign({}, headers, this.options.headers ?? {}),
+    };
+    if (this.options.protocols) {
+      init["protocols"] = this.options.protocols;
+    }
+
+    this.ws = new WebSocket(this.url, init as any);
+    this._registeredListeners.clear();
     this._registerWSEventListeners();
   }
 
@@ -150,13 +166,16 @@ export class Connection<T extends BaseNode = BaseNode> {
       return Promise.resolve();
     }
 
-    this.ws.removeListener("close", this._listeners.close);
-    return new Promise((resolve) => {
-      this.ws.once("close", (codex: number, reason: string) => {
-        this.node.emit("close", codex, reason);
-        resolve();
-      });
+    // Remove the auto-reconnect close listener before closing manually
+    this.ws.removeEventListener("close", this._onClose as EventListener);
 
+    return new Promise((resolve) => {
+      const onceClose = (event: CloseEvent) => {
+        this.ws.removeEventListener("close", onceClose as EventListener);
+        this.node.emit("close", event.code, event.reason);
+        resolve();
+      };
+      this.ws.addEventListener("close", onceClose as EventListener);
       this.ws.close(code, data);
     });
   }
@@ -171,12 +190,20 @@ export class Connection<T extends BaseNode = BaseNode> {
   }
 
   /**
-   * Registers WebSocket event listeners.
+   * Registers WebSocket event listeners (idempotent — skip if already registered).
    */
   private _registerWSEventListeners() {
-    for (const [event, listener] of Object.entries(this._listeners)) {
-      if (!this.ws.listeners(event).includes(listener)) {
-        this.ws.on(event, listener);
+    const toRegister: [string, EventListenerOrEventListenerObject][] = [
+      ["close", this._onClose as EventListener],
+      ["error", this._onError as EventListener],
+      ["message", this._onMessage as EventListener],
+      ["open", this._onOpen as EventListener],
+    ];
+
+    for (const [event, listener] of toRegister) {
+      if (!this._registeredListeners.has(event)) {
+        this.ws.addEventListener(event, listener);
+        this._registeredListeners.set(event, listener);
       }
     }
   }

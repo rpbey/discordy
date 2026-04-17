@@ -1,11 +1,3 @@
-import {
-  type IncomingHttpHeaders,
-  type IncomingMessage,
-  request,
-  STATUS_CODES,
-} from "node:http";
-import { URL } from "node:url";
-
 export enum RequestType {
   DELETE = "DELETE",
   GET = "GET",
@@ -16,20 +8,17 @@ export enum RequestType {
 export class HTTPError extends Error {
   public method: string;
   public statusCode: number;
-  public headers: IncomingHttpHeaders;
+  public headers: Record<string, string>;
   public path: string;
 
   get statusMessage(): string {
-    return STATUS_CODES[this.statusCode] ?? "Unknown";
+    return this.message.split(" ").slice(1).join(" ") || "Unknown";
   }
 
-  constructor(httpMessage: IncomingMessage, method: string, url: URL) {
-    const statusCode = httpMessage.statusCode ?? 520;
-    const errorMessage = STATUS_CODES[statusCode] ?? "Unknown";
-    super(`${String(statusCode)} ${errorMessage}`);
-
-    this.statusCode = statusCode;
-    this.headers = httpMessage.headers;
+  constructor(response: Response, method: string, url: URL) {
+    super(`${response.status} ${response.statusText || "Unknown"}`);
+    this.statusCode = response.status;
+    this.headers = Object.fromEntries(response.headers.entries());
     this.name = this.constructor.name;
     this.path = url.toString();
     this.method = method;
@@ -47,75 +36,37 @@ export class HttpClient {
   public async request<T = any>(
     method: RequestType,
     url: URL,
-    data?: Buffer,
+    data?: Uint8Array,
   ): Promise<T> {
-    const message = await this.sendRequest(method, url, data);
+    const headers: Record<string, string> = {
+      Accept: "application/json",
+      Authorization: this.password,
+      "Content-Type": "application/json",
+    };
 
-    if (message.statusCode && ![200, 204].includes(message.statusCode)) {
-      throw new HTTPError(message, method, url);
+    const response = await fetch(url.toString(), {
+      method,
+      headers,
+      body: data ? (data.buffer as ArrayBuffer) : null,
+    });
+
+    if (![200, 204].includes(response.status)) {
+      throw new HTTPError(response, method, url);
     }
 
-    const responseData = await this.collectResponseData(message);
-    return this.parseResponseData(responseData) as Promise<T>;
-  }
+    if (response.status === 204) {
+      return null as T;
+    }
 
-  private sendRequest(
-    method: RequestType,
-    url: URL,
-    data?: Buffer,
-  ): Promise<IncomingMessage> {
-    return new Promise<IncomingMessage>((resolve, reject) => {
-      const req = request(
-        {
-          headers: {
-            Accept: "application/json",
-            Authorization: this.password,
-            "Content-Type": "application/json",
-          },
-          hostname: url.hostname,
-          method,
-          path: url.pathname + url.search,
-          port: url.port,
-          protocol: url.protocol,
-        },
-        resolve,
-      );
-
-      req.on("error", reject);
-
-      if (data) {
-        req.write(data);
-      }
-
-      req.end();
-    });
-  }
-
-  private collectResponseData(message: IncomingMessage): Promise<Buffer> {
-    return new Promise<Buffer>((resolve, reject) => {
-      const chunks: Buffer[] = [];
-
-      message.on("data", (chunk) => {
-        chunks.push(typeof chunk === "string" ? Buffer.from(chunk) : chunk);
-      });
-
-      message.once("error", reject);
-      message.once("end", () => {
-        message.removeAllListeners();
-        resolve(Buffer.concat(chunks));
-      });
-    });
-  }
-
-  private parseResponseData(data: Buffer) {
-    if (data.length === 0) {
-      return null;
+    const text = await response.text();
+    if (!text) {
+      return null as T;
     }
 
     try {
-      return JSON.parse(data.toString());
+      return JSON.parse(text) as T;
     } catch {
-      return data.toString();
+      return text as unknown as T;
     }
   }
 

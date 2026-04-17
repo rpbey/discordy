@@ -34,7 +34,7 @@ export class Rest {
     return this.http.request(
       RequestType.POST,
       url,
-      Buffer.from(JSON.stringify(encodedTracks)),
+      new TextEncoder().encode(JSON.stringify(encodedTracks)),
     );
   }
 
@@ -65,7 +65,7 @@ export class Rest {
     return this.http.request(
       RequestType.POST,
       url,
-      Buffer.from(JSON.stringify({ address })),
+      new TextEncoder().encode(JSON.stringify({ address })),
     );
   }
 
@@ -83,7 +83,7 @@ export class Rest {
     return this.http.request(
       RequestType.PATCH,
       url,
-      Buffer.from(JSON.stringify(payload)),
+      new TextEncoder().encode(JSON.stringify(payload)),
     );
   }
 }
