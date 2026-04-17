@@ -4,9 +4,10 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import chalk from "chalk";
 import ora from "ora";
 import prompts from "prompts";
+
+import * as color from "./color.js";
 
 export enum PackageManager {
   npm,
@@ -89,8 +90,8 @@ export async function GetPackageManager(): Promise<PackageManager | null> {
 
   if (bin && !hasCommand(bin)) {
     console.log(
-      chalk.red("×"),
-      `Could not found ${chalk.greenBright(
+      color.red("×"),
+      `Could not found ${color.greenBright(
         PackageManager[manager],
       )} package manager, Please install it from:`,
       PackageManager.pnpm === manager
@@ -113,14 +114,14 @@ export async function InstallPackage(
 ): Promise<void> {
   if (PackageManager.none === manager) {
     console.log(
-      chalk.blueBright("?"),
-      chalk.bold("skipped package installation..."),
+      color.blueBright("?"),
+      color.bold("skipped package installation..."),
     );
     return;
   }
 
   const spinner = ora({
-    text: chalk.bold("Installing packages..."),
+    text: color.bold("Installing packages..."),
   }).start();
 
   const bin =
@@ -134,9 +135,9 @@ export async function InstallPackage(
 
   try {
     await runInstall(bin, root);
-    spinner.succeed(chalk.bold("Installed packages"));
+    spinner.succeed(color.bold("Installed packages"));
   } catch (err) {
-    spinner.fail(chalk.bold("Failed to install packages :("));
+    spinner.fail(color.bold("Failed to install packages :("));
     console.log(err);
   }
 }

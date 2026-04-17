@@ -7,9 +7,10 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import path from "node:path";
-import chalk from "chalk";
 import ora from "ora";
 import prompts from "prompts";
+
+import * as color from "./helper/color.js";
 
 import { IsFolderEmpty, MakeDir } from "./helper/dir.js";
 import { TryGitInit } from "./helper/git.js";
@@ -33,7 +34,7 @@ console.log(`
   ██║  ██║██║╚════██║██║     ██║   ██║██╔══██╗██║  ██║ ██╔██╗ 
   ██████╔╝██║███████║╚██████╗╚██████╔╝██║  ██║██████╔╝██╔╝ ██╗
   ╚═════╝ ╚═╝╚══════╝ ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚═════╝ ╚═╝  ╚═╝
-  ${chalk.dim(`v${String(version)}`)}
+  ${color.dim(`v${String(version)}`)}
 `);
 
 /**
@@ -88,7 +89,7 @@ if (packageManager === null) {
 const templateList = await GetTemplates();
 
 if (!templateList.length) {
-  console.log(chalk.red("> Unable to load templates :("));
+  console.log(color.red("> Unable to load templates :("));
   process.exit();
 }
 
@@ -107,7 +108,7 @@ const response = await prompts(
 );
 
 if (!response.template || typeof response.template !== "string") {
-  console.log(chalk.red("> Please select a template :("));
+  console.log(color.red("> Please select a template :("));
   process.exit();
 }
 
@@ -118,7 +119,7 @@ if (!response.template || typeof response.template !== "string") {
 try {
   await MakeDir(resolvedProjectPath);
 } catch (err) {
-  console.log(chalk.red("> Failed to create specified directory :("));
+  console.log(color.red("> Failed to create specified directory :("));
   console.log(err);
   process.exit();
 }
@@ -136,14 +137,14 @@ if (!IsFolderEmpty(resolvedProjectPath, projectName)) {
  */
 
 const spinner = ora({
-  text: chalk.bold("Downloading template..."),
+  text: color.bold("Downloading template..."),
 }).start();
 
 try {
   await DownloadAndExtractTemplate(resolvedProjectPath, response.template);
-  spinner.succeed(chalk.bold("Downloaded template"));
+  spinner.succeed(color.bold("Downloaded template"));
 } catch (err) {
-  spinner.fail(chalk.bold("Failed to download selected template :("));
+  spinner.fail(color.bold("Failed to download selected template :("));
   console.log(err);
   process.exit();
 }
@@ -158,7 +159,7 @@ try {
   pkg.name = projectName;
   await Bun.write(pkgPath, `${JSON.stringify(pkg, null, 2)}\n`);
 } catch (err) {
-  console.log(chalk.red("> Failed to update project name :("));
+  console.log(color.red("> Failed to update project name :("));
   console.log(err);
 }
 
@@ -180,13 +181,13 @@ await InstallPackage(resolvedProjectPath, packageManager);
 const isWin = process.platform === "win32";
 
 console.log(
-  chalk.greenBright("√"),
-  chalk.bold("Created discordx project"),
-  chalk.gray("»"),
-  chalk.greenBright(projectName),
+  color.greenBright("√"),
+  color.bold("Created discordx project"),
+  color.gray("»"),
+  color.greenBright(projectName),
 );
 
-console.log(chalk.blueBright("?"), chalk.bold("Next Steps!"));
+console.log(color.blueBright("?"), color.bold("Next Steps!"));
 console.log(`\t> cd ${projectPath}`);
 
 if (PackageManager.none === packageManager) {
@@ -194,9 +195,9 @@ if (PackageManager.none === packageManager) {
 }
 
 if (isWin) {
-  console.log(chalk.dim("\t> // Command Prompt (CMD)"));
+  console.log(color.dim("\t> // Command Prompt (CMD)"));
   console.log("\t> set BOT_TOKEN=REPLACE_THIS_WITH_YOUR_BOT_TOKEN");
-  console.log(chalk.dim("\t> // Powershell"));
+  console.log(color.dim("\t> // Powershell"));
   console.log('\t> $ENV:BOT_TOKEN="REPLACE_THIS_WITH_YOUR_BOT_TOKEN"');
 } else {
   console.log("\t> export BOT_TOKEN=REPLACE_THIS_WITH_YOUR_BOT_TOKEN");
@@ -209,14 +210,14 @@ if (PackageManager.none === packageManager) {
 }
 
 console.log();
-console.log(chalk.blueBright("?"), chalk.bold("Support"));
+console.log(color.blueBright("?"), color.bold("Support"));
 console.log("    Discord Server: https://discordx.js.org/discord");
 console.log("     Documentation: https://discordx.js.org");
 console.log("         Templates: https://github.com/discordx-ts/templates");
 console.log("            GitHub: https://github.com/discordx-ts/discordx");
 console.log();
 console.log(
-  chalk.greenBright("√"),
-  chalk.bold("Thank you for using discordx"),
-  chalk.red("❤️"),
+  color.greenBright("√"),
+  color.bold("Thank you for using discordx"),
+  color.red("❤️"),
 );

@@ -7,7 +7,8 @@
 import fs from "node:fs";
 import pfs from "node:fs/promises";
 import path from "node:path";
-import chalk from "chalk";
+
+import * as color from "./color.js";
 
 /**
  * Make project directory
@@ -52,7 +53,7 @@ export function IsFolderEmpty(root: string, name: string): boolean {
 
   if (conflicts.length > 0) {
     console.log(
-      `The directory ${chalk.green(name)} contains files that could conflict:`,
+      `The directory ${color.green(name)} contains files that could conflict:`,
     );
     console.log();
 
@@ -60,7 +61,7 @@ export function IsFolderEmpty(root: string, name: string): boolean {
       try {
         const stats = fs.lstatSync(path.join(root, file));
         if (stats.isDirectory()) {
-          console.log(`  ${chalk.blue(file)}/`);
+          console.log(`  ${color.blue(file)}/`);
         } else {
           console.log(`  ${file}`);
         }

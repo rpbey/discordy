@@ -6,9 +6,10 @@
  */
 import path from "node:path";
 import boxen from "boxen";
-import chalk from "chalk";
 import isInstalledGlobally from "is-installed-globally";
 import checkForUpdate from "update-check";
+
+import * as color from "./color.js";
 
 /**
  * Read package.json
@@ -45,7 +46,7 @@ if (update) {
   const updateVersion = packageJson.version;
   const updateLatest = update.latest;
   const updateCommand = updateCmd;
-  const template = `Update available ${chalk.dim(updateVersion)}${chalk.reset(" → ")}${chalk.green(updateLatest)} \nRun ${chalk.cyan(updateCommand)} to update`;
+  const template = `Update available ${color.dim(updateVersion)}${color.reset(" → ")}${color.green(updateLatest)} \nRun ${color.cyan(updateCommand)} to update`;
 
   console.log(
     boxen(template, {
