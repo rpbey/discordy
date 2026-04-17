@@ -34,6 +34,7 @@
     }
   },
   "types": "./dist/index.d.ts",
+  "sideEffects": false,
   "files": [
     "dist",
     "CHANGELOG.md",
@@ -43,12 +44,10 @@
     "package.json"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "build": "tsup src/index.ts --format cjs,esm --dts --clean",
     "build:typedoc": "bunx typedoc src/index.ts --out ../../docs/static/api/lava-player"
   },
   "dependencies": {
-    "@types/backoff": "^2.5.5",
-    "backoff": "^2.5.0",
     "ws": "^8.20.0"
   },
   "devDependencies": {

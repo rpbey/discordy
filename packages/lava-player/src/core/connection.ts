@@ -6,10 +6,10 @@
  */
 
 import type { IncomingMessage } from "node:http";
-import backoff from "backoff";
 import WebSocket from "ws";
 
 import type { BaseNode } from "../base/base-node.js";
+import { type Backoff, exponential } from "./backoff.js";
 
 /**
  * Interface representing HTTP headers.
@@ -39,7 +39,7 @@ export class Connection<T extends BaseNode = BaseNode> {
   public sessionId?: string;
 
   public ws!: WebSocket;
-  private _backoff!: backoff.Backoff;
+  private _backoff!: Backoff;
 
   private _listeners = {
     close: (code: number, reason: string) => {
@@ -89,21 +89,21 @@ export class Connection<T extends BaseNode = BaseNode> {
     this.options = options;
     this.sessionId = options.sessionId;
 
-    this.backoff = backoff.exponential();
+    this.backoff = exponential();
     this.connect();
   }
 
   /**
    * Getter for the backoff property.
    */
-  public get backoff(): backoff.Backoff {
+  public get backoff(): Backoff {
     return this._backoff;
   }
 
   /**
    * Setter for the backoff property.
    */
-  public set backoff(b: backoff.Backoff) {
+  public set backoff(b: Backoff) {
     b.on("ready", () => {
       this.connect();
     });

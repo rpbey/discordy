@@ -32,6 +32,7 @@
     }
   },
   "types": "./dist/index.d.ts",
+  "sideEffects": false,
   "files": [
     "dist",
     "CHANGELOG.md",
@@ -41,14 +42,10 @@
     "package.json"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "build": "tsup src/index.ts --format cjs,esm --dts --clean",
     "build:typedoc": "bunx typedoc src/index.ts --out ../../docs/static/api/pagination"
   },
-  "dependencies": {
-    "lodash": "^4.17.23"
-  },
   "devDependencies": {
-    "@types/lodash": "^4.17.24",
     "discord.js": "^14.25.1",
     "typescript": "5.9.3"
   },

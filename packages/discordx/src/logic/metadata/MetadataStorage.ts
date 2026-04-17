@@ -10,8 +10,6 @@ import {
   ApplicationCommandOptionType,
   ApplicationCommandType,
 } from "discord.js";
-import findIndex from "lodash/findIndex.js";
-
 import type { Method } from "../../decorators/classes/Method.js";
 import {
   ComponentType,
@@ -365,7 +363,7 @@ export class MetadataStorage {
       /**
        * Trigger an error if the command is already registered for this name.
        */
-      if (findIndex(this._simpleCommandsByName, { name: cmd.name }) !== -1) {
+      if (this._simpleCommandsByName.some((c) => c.name === cmd.name)) {
         throw Error(`Duplicate simple command name: ${cmd.name}`);
       }
 
@@ -378,7 +376,7 @@ export class MetadataStorage {
        * Store command by alias
        */
       cmd.aliases.forEach((alias) => {
-        if (findIndex(this._simpleCommandsByName, { name: alias }) !== -1) {
+        if (this._simpleCommandsByName.some((c) => c.name === alias)) {
           throw Error(`Duplicate simple command name: ${alias}`);
         }
 

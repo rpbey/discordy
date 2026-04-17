@@ -4,9 +4,6 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import isEqual from "lodash/isEqual.js";
-import uniqWith from "lodash/uniqWith.js";
-
 import type {
   Client,
   DApplicationCommand,
@@ -39,5 +36,5 @@ export const resolveIGuilds = async (
     ),
   );
 
-  return uniqWith(guildX.flat(1), isEqual);
+  return [...new Set(guildX.flat(1))];
 };

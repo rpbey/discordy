@@ -6,7 +6,6 @@
  */
 
 import type { Message } from "discord.js";
-import escapeRegExp from "lodash/escapeRegExp.js";
 
 import {
   type Client,
@@ -14,6 +13,7 @@ import {
   SimpleCommandParseType,
   toStringArray,
 } from "../../index.js";
+import { escapeRegExp } from "../../util/lodash-replacements.js";
 
 export class SimpleCommandManager {
   constructor(private client: Client) {}

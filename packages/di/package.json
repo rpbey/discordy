@@ -36,6 +36,7 @@
     }
   },
   "types": "./dist/index.d.ts",
+  "sideEffects": false,
   "files": [
     "dist",
     "CHANGELOG.md",
@@ -45,7 +46,7 @@
     "package.json"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "build": "tsup src/index.ts --format cjs,esm --dts --clean",
     "build:typedoc": "bunx typedoc src/index.ts --out ../../docs/static/api/di"
   },
   "dependencies": {

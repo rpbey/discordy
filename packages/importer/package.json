@@ -31,6 +31,7 @@
     }
   },
   "types": "./dist/index.d.ts",
+  "sideEffects": false,
   "files": [
     "dist",
     "index.d.ts",
@@ -41,7 +42,7 @@
     "package.json"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format cjs,esm --dts --external bun"
+    "build": "tsup src/index.ts --format cjs,esm --dts --external bun --clean"
   },
   "dependencies": {
     "glob": "^13.0.6"

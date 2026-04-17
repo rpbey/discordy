@@ -35,6 +35,7 @@
     }
   },
   "types": "./dist/index.d.ts",
+  "sideEffects": false,
   "files": [
     "dist",
     "CHANGELOG.md",
@@ -44,19 +45,17 @@
     "package.json"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "build": "tsup src/index.ts --format cjs,esm --dts --clean",
     "build:typedoc": "bunx typedoc src/index.ts --out ../../docs/static/api/discordx",
     "test": "for f in tests/*.test.ts; do bun test \"$f\" || exit 1; done"
   },
   "dependencies": {
     "@discordx/di": "workspace:^",
-    "@discordx/internal": "workspace:^",
-    "lodash": "^4.17.23"
+    "@discordx/internal": "workspace:^"
   },
   "devDependencies": {
     "@discordx/importer": "workspace:^",
     "@types/jest": "^30.0.0",
-    "@types/lodash": "^4.17.24",
     "discord.js": "^14.25.1",
     "jest": "^30.3.0",
     "reflect-metadata": "^0.2.2",

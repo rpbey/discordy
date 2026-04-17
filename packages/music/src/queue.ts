@@ -6,10 +6,20 @@
  */
 import { AudioPlayerStatus } from "@discordjs/voice";
 import type { Client } from "discord.js";
-import shuffle from "lodash/shuffle.js";
 
 import type { Node } from "./node.js";
 import type { JoinData, PlaybackInfoAudioNodePayload } from "./types/index.js";
+
+function shuffle<T>(arr: readonly T[]): T[] {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const tmp = a[i] as T;
+    a[i] = a[j] as T;
+    a[j] = tmp;
+  }
+  return a;
+}
 
 export interface Track {
   /**

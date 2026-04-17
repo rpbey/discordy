@@ -15,8 +15,6 @@ import {
   MessageComponentInteraction,
   type StringSelectMenuInteraction,
 } from "discord.js";
-import cloneDeep from "lodash/cloneDeep.js";
-
 import {
   defaultIds,
   defaultPerPageItem,
@@ -227,7 +225,7 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
     }
 
     const item = Array.isArray(this.pages)
-      ? cloneDeep<PaginationItem | undefined>(this.pages[page])
+      ? (structuredClone(this.pages[page]) as PaginationItem | undefined)
       : await this.pages.resolver(page, this);
 
     if (!item) {

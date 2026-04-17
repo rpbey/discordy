@@ -5,11 +5,10 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import type { ApplicationCommand } from "discord.js";
-import isEqual from "lodash/isEqual.js";
-import omit from "lodash/omit.js";
 
 import type { DApplicationCommand } from "../decorators/index.js";
 import type { ApplicationCommandDataEx } from "../types/index.js";
+import { deepEqual, omitKeys } from "./lodash-replacements.js";
 
 /**
  * Transform bigint to string
@@ -92,8 +91,7 @@ export function isApplicationCommandEqual(
 
   const firstJson = JSON.parse(
     jsonToString(
-      omit(
-        commandJson,
+      omitKeys(commandJson, [
         "applicationId",
         "defaultPermission",
         "descriptionLocalized",
@@ -104,13 +102,11 @@ export function isApplicationCommandEqual(
         "nameLocalized",
         "permissions",
         "version",
-      ),
+      ]),
     ),
   );
 
   const secondJson = JSON.parse(jsonToString(rawData));
 
-  const response = isEqual(firstJson, secondJson);
-
-  return response;
+  return deepEqual(firstJson, secondJson);
 }
