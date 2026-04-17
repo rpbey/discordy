@@ -5,30 +5,24 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import path from "node:path";
-import { fileURLToPath } from "node:url";
-
-const isBun =
-  typeof process !== "undefined" &&
-  typeof (process.versions as Record<string, string>).bun === "string";
 
 export function isESM(): boolean {
   return !!import.meta.url;
 }
 
 export function dirname(url: string): string {
-  return path.dirname(fileURLToPath(url));
+  // When called with import.meta.url, prefer import.meta.dir (Bun-native)
+  if (url.startsWith("file://")) {
+    return import.meta.dir;
+  }
+  return path.dirname(url);
 }
 
 async function scan(pattern: string): Promise<string[]> {
-  if (isBun) {
-    const { Glob } = await import("bun");
-    const g = new Glob(pattern);
-    const out: string[] = [];
-    for await (const p of g.scan({ cwd: ".", absolute: true })) out.push(p);
-    return out;
-  }
-  const { glob } = await import("glob");
-  return glob(pattern);
+  const g = new Bun.Glob(pattern);
+  const out: string[] = [];
+  for await (const p of g.scan({ cwd: ".", absolute: true })) out.push(p);
+  return out;
 }
 
 export async function resolve(...paths: string[]): Promise<string[]> {

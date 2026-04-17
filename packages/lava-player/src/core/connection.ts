@@ -148,7 +148,7 @@ export class Connection<T extends BaseNode = BaseNode> {
       headers: Object.assign({}, headers, this.options.headers ?? {}),
     };
     if (this.options.protocols) {
-      init["protocols"] = this.options.protocols;
+      init.protocols = this.options.protocols;
     }
 
     this.ws = new WebSocket(this.url, init as any);
