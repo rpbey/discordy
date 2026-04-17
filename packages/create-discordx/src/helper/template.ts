@@ -4,12 +4,9 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import { createWriteStream, promises as fs } from "node:fs";
+import { promises as fs } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { Readable, Stream } from "node:stream";
-import { promisify } from "node:util";
-import axios from "axios";
 import * as tar from "tar";
 
 /**
@@ -20,18 +17,22 @@ import * as tar from "tar";
 export async function GetTemplates(): Promise<
   { title: string; value: string }[]
 > {
-  const response = await axios
-    .get<{ name: string; path: string; type: string }[]>(
+  try {
+    const res = await fetch(
       "https://api.github.com/repos/discordx-ts/templates/contents",
-    )
-    .then((res) =>
-      res.data
-        .filter((row) => row.type === "dir" && /^[0-9].+/.test(row.name))
-        .map((row) => ({ title: row.name, value: row.path })),
-    )
-    .catch(() => []);
-
-  return response;
+    );
+    if (!res.ok) return [];
+    const data = (await res.json()) as {
+      name: string;
+      path: string;
+      type: string;
+    }[];
+    return data
+      .filter((row) => row.type === "dir" && /^[0-9].+/.test(row.name))
+      .map((row) => ({ title: row.name, value: row.path }));
+  } catch {
+    return [];
+  }
 }
 
 /**
@@ -41,27 +42,25 @@ export async function GetTemplates(): Promise<
  * @returns
  */
 export async function IsTemplateExist(name: string): Promise<boolean> {
-  const response = await axios
-    .get(
+  try {
+    const res = await fetch(
       `https://api.github.com/repos/discordx-ts/templates/contents/${name}?ref=main`,
-    )
-    .then(() => true)
-    .catch(() => false);
-
-  return response;
+    );
+    return res.ok;
+  } catch {
+    return false;
+  }
 }
 
 async function downloadTar(url: string) {
-  const pipeline = promisify(Stream.pipeline);
   const tempFilename = `discordx-template.temp-${Date.now().toString()}`;
   const tempFilePath = join(tmpdir(), tempFilename);
 
-  const request = await axios({
-    responseType: "stream",
-    url: url,
-  });
-
-  await pipeline(Readable.from(request.data), createWriteStream(tempFilePath));
+  const res = await fetch(url);
+  if (!res.ok || !res.body) {
+    throw new Error(`Failed to download template: HTTP ${res.status}`);
+  }
+  await Bun.write(tempFilePath, res);
   return tempFilePath;
 }
 

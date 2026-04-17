@@ -15,13 +15,13 @@ import type { Client } from "discordx";
 export function getNode(client: Client): Node {
   const nodeX = new Node({
     host: {
-      address: process.env.LAVA_HOST ?? "localhost",
+      address: Bun.env.LAVA_HOST ?? "localhost",
       connectionOptions: { sessionId: client.botId },
-      port: process.env.LAVA_PORT ? Number(process.env.LAVA_PORT) : 2333,
+      port: Bun.env.LAVA_PORT ? Number(Bun.env.LAVA_PORT) : 2333,
     },
 
     // your Lavalink password
-    password: process.env.LAVA_PASSWORD ?? "youshallnotpass",
+    password: Bun.env.LAVA_PASSWORD ?? "youshallnotpass",
 
     send(guildId, packet) {
       const guild = client.guilds.cache.get(guildId);

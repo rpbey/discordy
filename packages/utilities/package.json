@@ -41,7 +41,7 @@
   ],
   "scripts": {
     "build": "tsup src/index.ts --format cjs,esm --dts",
-    "build:typedoc": "npx typedoc src/index.ts --out ../../docs/static/api/utilities"
+    "build:typedoc": "bunx typedoc src/index.ts --out ../../docs/static/api/utilities"
   },
   "dependencies": {
     "dayjs": "^1.11.20"
@@ -58,8 +58,7 @@
     "discordx": "*"
   },
   "engines": {
-    "node": ">=16.0.0",
-    "npm": ">=7.0.0"
+    "node": ">=16.0.0"
   },
   "publishConfig": {
     "access": "public"

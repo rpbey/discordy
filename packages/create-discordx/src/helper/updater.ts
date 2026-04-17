@@ -4,7 +4,7 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import { readFile } from "node:fs/promises";
+import path from "node:path";
 import boxen from "boxen";
 import chalk from "chalk";
 import isInstalledGlobally from "is-installed-globally";
@@ -13,9 +13,9 @@ import checkForUpdate from "update-check";
 /**
  * Read package.json
  */
-const packageJson = JSON.parse(
-  await readFile(new URL("../package.json", import.meta.url), "utf-8"),
-);
+const packageJson = (await Bun.file(
+  path.join(import.meta.dirname, "..", "package.json"),
+).json()) as { version: string };
 
 /**
  * Check for update

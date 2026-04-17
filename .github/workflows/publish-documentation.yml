@@ -30,19 +30,18 @@ jobs:
         uses: pnpm/action-setup@master
 
       - name: Install Node
-        uses: actions/setup-node@main
+        uses: oven-sh/setup-bun@v2
         with:
-          node-version: 24
-          cache: "pnpm"
+          bun-version: latest
 
       - name: Install dependencies
-        run: pnpm install
+        run: bun install
 
       - name: Build TypeDoc
-        run: pnpm run build:typedoc
+        run: bun run build:typedoc
 
       - name: Build docs
-        run: pnpm run build
+        run: bun run build
         working-directory: ./docs
 
       - name: Add CNAME

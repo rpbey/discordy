@@ -11,7 +11,7 @@
     "experimentalDecorators": true,
     "declaration": true,
     "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "Node",
+    "moduleResolution": "Bundler",
     "esModuleInterop": true
   },
   "exclude": []

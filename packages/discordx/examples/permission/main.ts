@@ -36,10 +36,10 @@ export class Main {
     await importx(`${dirname(import.meta.url)}/commands/**/*.{js,ts}`);
 
     // let's start the bot
-    if (!process.env.BOT_TOKEN) {
+    if (!Bun.env.BOT_TOKEN) {
       throw Error("Could not find BOT_TOKEN in your environment");
     }
-    await Main.client.login(process.env.BOT_TOKEN);
+    await Main.client.login(Bun.env.BOT_TOKEN);
   }
 }
 

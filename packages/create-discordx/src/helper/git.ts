@@ -4,54 +4,54 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import { execSync } from "node:child_process";
+import { rmSync } from "node:fs";
 import path from "node:path";
-import { rimraf } from "rimraf";
+
+function runSilent(cmd: string[], cwd: string): boolean {
+  const p = Bun.spawnSync({
+    cmd,
+    cwd,
+    stdout: "ignore",
+    stderr: "ignore",
+  });
+  return p.success;
+}
 
 function IsInGitRepository(root: string): boolean {
-  try {
-    execSync("git rev-parse --is-inside-work-tree", {
-      cwd: root,
-      stdio: "ignore",
-    });
-    return true;
-  } catch {
-    return false;
-  }
+  return runSilent(["git", "rev-parse", "--is-inside-work-tree"], root);
 }
 
 function IsInMercurialRepository(root: string): boolean {
-  try {
-    execSync("hg --cwd . root", { cwd: root, stdio: "ignore" });
-    return true;
-  } catch {
-    return false;
-  }
+  return runSilent(["hg", "--cwd", ".", "root"], root);
 }
 
 export function TryGitInit(root: string): boolean {
   let didInit = false;
   try {
-    execSync("git --version", { cwd: root, stdio: "ignore" });
+    if (!runSilent(["git", "--version"], root)) return false;
     if (IsInGitRepository(root) || IsInMercurialRepository(root)) {
       return false;
     }
 
-    execSync("git init", { cwd: root, stdio: "ignore" });
+    if (!runSilent(["git", "init"], root)) return false;
     didInit = true;
 
-    execSync("git checkout -b main", { cwd: root, stdio: "ignore" });
-    execSync("git add -A", { cwd: root, stdio: "ignore" });
-    execSync('git commit -m "Initial commit from discordx"', {
-      cwd: root,
-      stdio: "ignore",
-    });
+    if (!runSilent(["git", "checkout", "-b", "main"], root)) return false;
+    if (!runSilent(["git", "add", "-A"], root)) return false;
+    if (
+      !runSilent(
+        ["git", "commit", "-m", "Initial commit from discordx"],
+        root,
+      )
+    ) {
+      return false;
+    }
 
     return true;
   } catch {
     if (didInit) {
       try {
-        rimraf.sync(path.join(root, ".git"));
+        rmSync(path.join(root, ".git"), { recursive: true, force: true });
       } catch {
         // empty statement
       }

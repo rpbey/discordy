@@ -45,8 +45,8 @@
   ],
   "scripts": {
     "build": "tsup src/index.ts --format cjs,esm --dts",
-    "build:typedoc": "npx typedoc src/index.ts --out ../../docs/static/api/discordx",
-    "test": "jest --detectOpenHandles"
+    "build:typedoc": "bunx typedoc src/index.ts --out ../../docs/static/api/discordx",
+    "test": "for f in tests/*.test.ts; do bun test \"$f\" || exit 1; done"
   },
   "dependencies": {
     "@discordx/di": "workspace:^",
@@ -68,8 +68,7 @@
     "discord.js": ">=14 || ^14.0.0-dev"
   },
   "engines": {
-    "node": ">=16.0.0",
-    "npm": ">=7.0.0"
+    "node": ">=16.0.0"
   },
   "publishConfig": {
     "access": "public"

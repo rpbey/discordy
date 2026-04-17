@@ -4,7 +4,6 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import { exec, execSync } from "node:child_process";
 import chalk from "chalk";
 import ora from "ora";
 import prompts from "prompts";
@@ -15,6 +14,28 @@ export enum PackageManager {
   pnpm,
   bun,
   none,
+}
+
+function hasCommand(bin: string): boolean {
+  const p = Bun.spawnSync({
+    cmd: [bin, "--version"],
+    stdout: "ignore",
+    stderr: "ignore",
+  });
+  return p.success;
+}
+
+async function runInstall(bin: string, cwd: string): Promise<void> {
+  const proc = Bun.spawn({
+    cmd: [bin, "install"],
+    cwd,
+    stdout: "ignore",
+    stderr: "ignore",
+  });
+  const code = await proc.exited;
+  if (code !== 0) {
+    throw new Error(`${bin} install exited with code ${code}`);
+  }
 }
 
 export async function GetPackageManager(): Promise<PackageManager | null> {
@@ -55,28 +76,18 @@ export async function GetPackageManager(): Promise<PackageManager | null> {
 
   const manager = Number(selected["package-manager"]) as PackageManager;
 
-  try {
-    switch (manager) {
-      case PackageManager.none:
-        break;
+  const bin =
+    manager === PackageManager.npm
+      ? "npm"
+      : manager === PackageManager.yarn
+        ? "yarn"
+        : manager === PackageManager.pnpm
+          ? "pnpm"
+          : manager === PackageManager.bun
+            ? "bun"
+            : null;
 
-      case PackageManager.npm:
-        execSync("npm --version", { stdio: "ignore" });
-        break;
-
-      case PackageManager.yarn:
-        execSync("yarn --version", { stdio: "ignore" });
-        break;
-
-      case PackageManager.pnpm:
-        execSync("pnpm --version", { stdio: "ignore" });
-        break;
-
-      case PackageManager.bun:
-        execSync("bun --version", { stdio: "ignore" });
-        break;
-    }
-  } catch (err) {
+  if (bin && !hasCommand(bin)) {
     console.log(
       chalk.red("×"),
       `Could not found ${chalk.greenBright(
@@ -90,9 +101,6 @@ export async function GetPackageManager(): Promise<PackageManager | null> {
             ? "https://bun.sh"
             : "https://nodejs.org/en/download",
     );
-
-    console.log(err);
-
     return GetPackageManager();
   }
 
@@ -115,53 +123,17 @@ export async function InstallPackage(
     text: chalk.bold("Installing packages..."),
   }).start();
 
+  const bin =
+    manager === PackageManager.npm
+      ? "npm"
+      : manager === PackageManager.yarn
+        ? "yarn"
+        : manager === PackageManager.pnpm
+          ? "pnpm"
+          : "bun";
+
   try {
-    switch (manager) {
-      case PackageManager.npm:
-        await new Promise((resolve, reject) => {
-          exec("npm install", { cwd: root }, (err) => {
-            if (err) {
-              reject(err);
-            }
-            resolve(true);
-          });
-        });
-        break;
-
-      case PackageManager.yarn:
-        await new Promise((resolve, reject) => {
-          exec("yarn install", { cwd: root }, (err) => {
-            if (err) {
-              reject(err);
-            }
-            resolve(true);
-          });
-        });
-        break;
-
-      case PackageManager.pnpm:
-        await new Promise((resolve, reject) => {
-          exec("pnpm install", { cwd: root }, (err) => {
-            if (err) {
-              reject(err);
-            }
-            resolve(true);
-          });
-        });
-        break;
-
-      case PackageManager.bun:
-        await new Promise((resolve, reject) => {
-          exec("bun install", { cwd: root }, (err) => {
-            if (err) {
-              reject(err);
-            }
-            resolve(true);
-          });
-        });
-        break;
-    }
-
+    await runInstall(bin, root);
     spinner.succeed(chalk.bold("Installed packages"));
   } catch (err) {
     spinner.fail(chalk.bold("Failed to install packages :("));

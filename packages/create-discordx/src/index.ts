@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 
 /*
  * -------------------------------------------------------------------------------------------------------
@@ -6,7 +6,6 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import { execSync } from "node:child_process";
 import path from "node:path";
 import chalk from "chalk";
 import ora from "ora";
@@ -154,13 +153,10 @@ try {
  */
 
 try {
-  execSync(
-    `npx -y json -I -f package.json -e "this.name=\\"${projectName}\\""`,
-    {
-      cwd: resolvedProjectPath,
-      stdio: "ignore",
-    },
-  );
+  const pkgPath = path.join(resolvedProjectPath, "package.json");
+  const pkg = (await Bun.file(pkgPath).json()) as Record<string, unknown>;
+  pkg.name = projectName;
+  await Bun.write(pkgPath, `${JSON.stringify(pkg, null, 2)}\n`);
 } catch (err) {
   console.log(chalk.red("> Failed to update project name :("));
   console.log(err);

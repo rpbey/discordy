@@ -19,15 +19,14 @@ jobs:
         uses: pnpm/action-setup@master
 
       - name: Install Node
-        uses: actions/setup-node@main
+        uses: oven-sh/setup-bun@v2
         with:
-          node-version: 24
-          cache: "pnpm"
+          bun-version: latest
 
       - name: Install dependencies for docs
-        run: pnpm install
+        run: bun install
         working-directory: ./docs
 
       - name: Build docs
-        run: pnpm run build
+        run: bun run build
         working-directory: ./docs
