@@ -64,5 +64,8 @@
     "esbuild",
     "ffmpeg-static",
     "unrs-resolver"
-  ]
+  ],
+  "engines": {
+    "bun": ">=1.2.0"
+  }
 }

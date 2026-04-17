@@ -5,7 +5,6 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import { EventEmitter } from "node:events";
-import WebSocket from "ws";
 
 import { Connection } from "../core/connection.js";
 import GuildPlayerStore from "../core/guild-player-store.js";
@@ -71,7 +70,7 @@ export abstract class BaseNode extends EventEmitter {
   }
 
   public get connected(): boolean {
-    return this.connection.ws.readyState === WebSocket.OPEN;
+    return this.connection.ws.readyState === WebSocket.OPEN; // global WebSocket
   }
 
   public voiceStateUpdate(packet: VoiceStateUpdate): Promise<boolean> {

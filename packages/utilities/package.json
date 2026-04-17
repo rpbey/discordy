@@ -59,7 +59,7 @@
     "discordx": "*"
   },
   "engines": {
-    "node": ">=16.0.0"
+    "bun": ">=1.2.0"
   },
   "publishConfig": {
     "access": "public"

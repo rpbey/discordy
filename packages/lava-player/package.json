@@ -47,15 +47,12 @@
     "build": "tsup src/index.ts --format cjs,esm --dts --clean",
     "build:typedoc": "bunx typedoc src/index.ts --out ../../docs/static/api/lava-player"
   },
-  "dependencies": {
-    "ws": "^8.20.0"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "@types/ws": "^8.18.1",
     "typescript": "5.9.3"
   },
   "engines": {
-    "node": ">=16.0.0"
+    "bun": ">=1.2.0"
   },
   "publishConfig": {
     "access": "public"

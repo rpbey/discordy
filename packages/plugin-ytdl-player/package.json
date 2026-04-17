@@ -133,5 +133,8 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "engines": {
+    "bun": ">=1.2.0"
   }
 }
