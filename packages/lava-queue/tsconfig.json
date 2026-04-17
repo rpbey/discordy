@@ -15,7 +15,12 @@
     "declaration": true,
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "Bundler",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "moduleDetection": "force",
+    "verbatimModuleSyntax": true
   },
-  "exclude": ["examples", "dist"]
+  "exclude": [
+    "examples",
+    "dist"
+  ]
 }

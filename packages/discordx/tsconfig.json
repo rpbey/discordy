@@ -15,7 +15,9 @@
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "Bundler",
     "esModuleInterop": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "moduleDetection": "force",
+    "verbatimModuleSyntax": true
   },
   "exclude": [
     "node_modules",

@@ -11,7 +11,13 @@
     "noUncheckedIndexedAccess": true,
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "Bundler",
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "moduleDetection": "force",
+    "verbatimModuleSyntax": true
   },
-  "exclude": ["node_modules", "tests", "examples"]
+  "exclude": [
+    "node_modules",
+    "tests",
+    "examples"
+  ]
 }
