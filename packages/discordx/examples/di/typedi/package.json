@@ -2,7 +2,7 @@
   "name": "typedi-example",
   "private": true,
   "dependencies": {
-    "discordx": "workspace:^",
+    "@yohan971/discordx": "workspace:^",
     "typedi": "^0.10.0"
   }
 }

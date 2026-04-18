@@ -1,6 +1,6 @@
 {
-  "name": "discordx",
-  "version": "11.13.3",
+  "name": "@yohan971/discordx",
+  "version": "0.1.0",
   "private": false,
   "description": "Create a discord bot with TypeScript and Decorators!",
   "keywords": [
@@ -50,11 +50,11 @@
     "test": "for f in tests/*.test.ts; do bun test \"$f\" || exit 1; done"
   },
   "dependencies": {
-    "@discordx/di": "workspace:^",
-    "@discordx/internal": "workspace:^"
+    "@yohan971/di": "workspace:^",
+    "@yohan971/internal": "workspace:^"
   },
   "devDependencies": {
-    "@discordx/importer": "workspace:^",
+    "@yohan971/importer": "workspace:^",
     "@types/jest": "^30.0.0",
     "discord.js": "^14.25.1",
     "jest": "^30.3.0",

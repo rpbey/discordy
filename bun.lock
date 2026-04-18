@@ -41,8 +41,8 @@
       },
     },
     "packages/create-discordx": {
-      "name": "create-discordx",
-      "version": "1.3.2",
+      "name": "@yohan971/create-discordx",
+      "version": "0.1.0",
       "bin": {
         "create-discordx": "./dist/index.js",
       },
@@ -63,8 +63,8 @@
       },
     },
     "packages/di": {
-      "name": "@discordx/di",
-      "version": "3.3.4",
+      "name": "@yohan971/di",
+      "version": "0.1.0",
       "dependencies": {
         "tsyringe": "^4.10.0",
         "typedi": "^0.10.0",
@@ -74,15 +74,15 @@
       },
     },
     "packages/discordx": {
-      "name": "discordx",
-      "version": "11.13.3",
+      "name": "@yohan971/discordx",
+      "version": "0.1.0",
       "dependencies": {
-        "@discordx/di": "workspace:^",
-        "@discordx/internal": "workspace:^",
+        "@yohan971/di": "workspace:^",
+        "@yohan971/internal": "workspace:^",
       },
       "devDependencies": {
-        "@discordx/importer": "workspace:^",
         "@types/jest": "^30.0.0",
+        "@yohan971/importer": "workspace:^",
         "discord.js": "^14.25.1",
         "jest": "^30.3.0",
         "reflect-metadata": "^0.2.2",
@@ -97,54 +97,54 @@
     "packages/discordx/examples/di/tsyringe": {
       "name": "tsyringe-example",
       "dependencies": {
-        "discordx": "workspace:^",
+        "@yohan971/discordx": "workspace:^",
         "tsyringe": "^4.10.0",
       },
     },
     "packages/discordx/examples/di/typedi": {
       "name": "typedi-example",
       "dependencies": {
-        "discordx": "workspace:^",
+        "@yohan971/discordx": "workspace:^",
         "typedi": "^0.10.0",
       },
     },
     "packages/importer": {
-      "name": "@discordx/importer",
-      "version": "1.3.3",
+      "name": "@yohan971/importer",
+      "version": "0.1.0",
       "devDependencies": {
         "typescript": "5.9.3",
       },
     },
     "packages/internal": {
-      "name": "@discordx/internal",
-      "version": "1.2.0",
+      "name": "@yohan971/internal",
+      "version": "0.1.0",
       "devDependencies": {
         "typescript": "5.9.3",
       },
     },
     "packages/lava-player": {
-      "name": "@discordx/lava-player",
-      "version": "2.2.0",
+      "name": "@yohan971/lava-player",
+      "version": "0.1.0",
       "devDependencies": {
         "typescript": "5.9.3",
       },
     },
     "packages/lava-queue": {
-      "name": "@discordx/lava-queue",
-      "version": "4.0.10",
+      "name": "@yohan971/lava-queue",
+      "version": "0.1.0",
       "devDependencies": {
-        "@discordx/lava-player": "workspace:^",
+        "@yohan971/lava-player": "workspace:^",
         "discord.js": "^14.25.1",
         "typescript": "5.9.3",
       },
       "peerDependencies": {
-        "@discordx/lava-player": ">=2.2.0",
+        "@yohan971/lava-player": "workspace:^",
         "discord.js": ">=13",
       },
     },
     "packages/music": {
-      "name": "@discordx/music",
-      "version": "6.3.3",
+      "name": "@yohan971/music",
+      "version": "0.1.0",
       "dependencies": {
         "@distube/ytdl-core": "^4.16.12",
         "prism-media": "^1.3.5",
@@ -153,8 +153,8 @@
       },
       "devDependencies": {
         "@discordjs/voice": "^0.19.2",
-        "@discordx/importer": "workspace:^",
         "@types/yt-search": "^2.10.3",
+        "@yohan971/importer": "workspace:^",
         "discord.js": "^14.25.1",
         "ffmpeg-static": "^5.3.0",
         "libsodium-wrappers": "^0.8.2",
@@ -162,13 +162,13 @@
       },
       "peerDependencies": {
         "@discordjs/voice": ">=0.11",
-        "@discordx/importer": "*",
+        "@yohan971/importer": "workspace:^",
         "discord.js": ">=14 || ^14.0.0-dev",
       },
     },
     "packages/pagination": {
-      "name": "@discordx/pagination",
-      "version": "4.4.0",
+      "name": "@yohan971/pagination",
+      "version": "0.1.0",
       "devDependencies": {
         "discord.js": "^14.25.1",
         "typescript": "5.9.3",
@@ -180,62 +180,62 @@
     "packages/pagination/examples/pagination": {
       "name": "pagination-example",
       "dependencies": {
-        "@discordx/importer": "workspace:^",
-        "@discordx/pagination": "workspace:^",
-        "discordx": "workspace:^",
+        "@yohan971/discordx": "workspace:^",
+        "@yohan971/importer": "workspace:^",
+        "@yohan971/pagination": "workspace:^",
       },
     },
     "packages/plugin-lava-player": {
-      "name": "@discordx/plugin-lava-player",
-      "version": "3.0.2",
+      "name": "@yohan971/plugin-lava-player",
+      "version": "0.1.0",
       "dependencies": {
-        "@discordx/lava-player": "workspace:^",
-        "@discordx/lava-queue": "workspace:^",
-        "@discordx/pagination": "workspace:^",
+        "@yohan971/lava-player": "workspace:^",
+        "@yohan971/lava-queue": "workspace:^",
+        "@yohan971/pagination": "workspace:^",
       },
       "devDependencies": {
+        "@yohan971/discordx": "workspace:^",
         "discord.js": "^14.25.1",
-        "discordx": "workspace:^",
       },
       "peerDependencies": {
+        "@yohan971/discordx": "workspace:^",
         "discord.js": "*",
-        "discordx": "*",
       },
     },
     "packages/plugin-ytdl-player": {
-      "name": "@discordx/plugin-ytdl-player",
-      "version": "2.3.11",
+      "name": "@yohan971/plugin-ytdl-player",
+      "version": "0.1.0",
       "dependencies": {
         "@discordjs/voice": "^0.19.2",
-        "@discordx/importer": "workspace:^",
-        "@discordx/music": "workspace:^",
-        "@discordx/pagination": "workspace:^",
+        "@yohan971/importer": "workspace:^",
+        "@yohan971/music": "workspace:^",
+        "@yohan971/pagination": "workspace:^",
         "ffmpeg-static": "^5.3.0",
         "libsodium-wrappers": "^0.8.2",
         "spotify-url-info": "^3.3.0",
         "youtube-sr": "^4.3.12",
       },
       "devDependencies": {
+        "@yohan971/discordx": "workspace:^",
         "discord.js": "^14.25.1",
-        "discordx": "workspace:^",
       },
     },
     "packages/utilities": {
-      "name": "@discordx/utilities",
-      "version": "8.0.0",
+      "name": "@yohan971/utilities",
+      "version": "0.1.0",
       "dependencies": {
         "dayjs": "^1.11.20",
       },
       "devDependencies": {
-        "@discordx/importer": "workspace:^",
-        "@discordx/pagination": "workspace:^",
+        "@yohan971/discordx": "workspace:^",
+        "@yohan971/importer": "workspace:^",
+        "@yohan971/pagination": "workspace:^",
         "discord.js": "^14.25.1",
-        "discordx": "workspace:^",
         "typescript": "5.9.3",
       },
       "peerDependencies": {
+        "@yohan971/discordx": "workspace:^",
         "discord.js": ">=14 || ^14.0.0-dev",
-        "discordx": "*",
       },
     },
   },
@@ -736,26 +736,6 @@
     "@discordjs/voice": ["@discordjs/voice@0.19.2", "", { "dependencies": { "@snazzah/davey": "0.1.10", "@types/ws": "8.18.1", "discord-api-types": "0.38.42", "prism-media": "1.3.5", "tslib": "2.8.1", "ws": "8.20.0" } }, "sha512-3yJ255e4ag3wfZu/DSxeOZK1UtnqNxnspmLaQetGT0pDkThNZoHs+Zg6dgZZ19JEVomXygvfHn9lNpICZuYtEA=="],
 
     "@discordjs/ws": ["@discordjs/ws@1.2.3", "", { "dependencies": { "@discordjs/collection": "2.1.1", "@discordjs/rest": "2.6.0", "@discordjs/util": "1.2.0", "@sapphire/async-queue": "1.5.5", "@types/ws": "8.18.1", "@vladfrangu/async_event_emitter": "2.4.7", "discord-api-types": "0.38.36", "tslib": "2.8.1", "ws": "8.20.0" } }, "sha512-wPlQDxEmlDg5IxhJPuxXr3Vy9AjYq5xCvFWGJyD7w7Np8ZGu+Mc+97LCoEc/+AYCo2IDpKioiH0/c/mj5ZR9Uw=="],
-
-    "@discordx/di": ["@discordx/di@workspace:packages/di"],
-
-    "@discordx/importer": ["@discordx/importer@workspace:packages/importer"],
-
-    "@discordx/internal": ["@discordx/internal@workspace:packages/internal"],
-
-    "@discordx/lava-player": ["@discordx/lava-player@workspace:packages/lava-player"],
-
-    "@discordx/lava-queue": ["@discordx/lava-queue@workspace:packages/lava-queue"],
-
-    "@discordx/music": ["@discordx/music@workspace:packages/music"],
-
-    "@discordx/pagination": ["@discordx/pagination@workspace:packages/pagination"],
-
-    "@discordx/plugin-lava-player": ["@discordx/plugin-lava-player@workspace:packages/plugin-lava-player"],
-
-    "@discordx/plugin-ytdl-player": ["@discordx/plugin-ytdl-player@workspace:packages/plugin-ytdl-player"],
-
-    "@discordx/utilities": ["@discordx/utilities@workspace:packages/utilities"],
 
     "@discoveryjs/json-ext": ["@discoveryjs/json-ext@0.5.7", "", {}, "sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw=="],
 
@@ -1353,6 +1333,30 @@
 
     "@xtuc/long": ["@xtuc/long@4.2.2", "", {}, "sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ=="],
 
+    "@yohan971/create-discordx": ["@yohan971/create-discordx@workspace:packages/create-discordx"],
+
+    "@yohan971/di": ["@yohan971/di@workspace:packages/di"],
+
+    "@yohan971/discordx": ["@yohan971/discordx@workspace:packages/discordx"],
+
+    "@yohan971/importer": ["@yohan971/importer@workspace:packages/importer"],
+
+    "@yohan971/internal": ["@yohan971/internal@workspace:packages/internal"],
+
+    "@yohan971/lava-player": ["@yohan971/lava-player@workspace:packages/lava-player"],
+
+    "@yohan971/lava-queue": ["@yohan971/lava-queue@workspace:packages/lava-queue"],
+
+    "@yohan971/music": ["@yohan971/music@workspace:packages/music"],
+
+    "@yohan971/pagination": ["@yohan971/pagination@workspace:packages/pagination"],
+
+    "@yohan971/plugin-lava-player": ["@yohan971/plugin-lava-player@workspace:packages/plugin-lava-player"],
+
+    "@yohan971/plugin-ytdl-player": ["@yohan971/plugin-ytdl-player@workspace:packages/plugin-ytdl-player"],
+
+    "@yohan971/utilities": ["@yohan971/utilities@workspace:packages/utilities"],
+
     "abbrev": ["abbrev@1.1.1", "", {}, "sha512-nne9/IiQ/hzIhY6pdDnbBtz7DjPTKrY00P/zvPSm5pOFkl6xuGrGnXn/VtTNNfNtAfZ9/1RtehkszU9qcTii0Q=="],
 
     "accepts": ["accepts@1.3.8", "", { "dependencies": { "mime-types": "2.1.35", "negotiator": "0.6.3" } }, "sha512-PYAthTa2m2VKxuvSD3DPC/Gy+U+sOA1LAuT8mkmRuvw+NACSaeXEQ+NHcVF7rONl6qcaxV3Uuemwawk+7+SJLw=="],
@@ -1649,8 +1653,6 @@
 
     "cosmiconfig-typescript-loader": ["cosmiconfig-typescript-loader@6.2.0", "", { "dependencies": { "jiti": "2.6.1" }, "peerDependencies": { "@types/node": "25.5.0", "cosmiconfig": "9.0.1", "typescript": "5.9.3" } }, "sha512-GEN39v7TgdxgIoNcdkRE3uiAzQt3UXLyHbRHD6YoL048XAeOomyxaP+Hh/+2C6C2wYjxJ2onhJcsQp+L4YEkVQ=="],
 
-    "create-discordx": ["create-discordx@workspace:packages/create-discordx"],
-
     "create-require": ["create-require@1.1.1", "", {}, "sha512-dcKFX3jn0MpIaXjisoRvexIJVEKzaq7z2rZKxf+MSr9TkdmHmsU4m2lcLojrj/FHl8mk5VxMmYA+ftRkP/3oKQ=="],
 
     "cross-spawn": ["cross-spawn@7.0.6", "", { "dependencies": { "path-key": "3.1.1", "shebang-command": "2.0.0", "which": "2.0.2" } }, "sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA=="],
@@ -1750,8 +1752,6 @@
     "discord-api-types": ["discord-api-types@0.38.36", "", {}, "sha512-qrbUbjjwtyeBg5HsAlm1C859epfOyiLjPqAOzkdWlCNsZCWJrertnETF/NwM8H+waMFU58xGSc5eXUfXah+WTQ=="],
 
     "discord.js": ["discord.js@14.25.1", "", { "dependencies": { "@discordjs/builders": "1.13.1", "@discordjs/collection": "1.5.3", "@discordjs/formatters": "0.6.2", "@discordjs/rest": "2.6.0", "@discordjs/util": "1.2.0", "@discordjs/ws": "1.2.3", "@sapphire/snowflake": "3.5.3", "discord-api-types": "0.38.36", "fast-deep-equal": "3.1.3", "lodash.snakecase": "4.1.1", "magic-bytes.js": "1.12.1", "tslib": "2.8.1", "undici": "6.21.3" } }, "sha512-2l0gsPOLPs5t6GFZfQZKnL1OJNYFcuC/ETWsW4VtKVD/tg4ICa9x+jb9bkPffkMdRpRpuUaO/fKkHCBeiCKh8g=="],
-
-    "discordx": ["discordx@workspace:packages/discordx"],
 
     "dns-packet": ["dns-packet@5.6.1", "", { "dependencies": { "@leichtgewicht/ip-codec": "2.0.5" } }, "sha512-l4gcSouhcgIKRvyy99RNVOgxXiicE+2jZoNmaNmZ6JXiGajBOJAesk1OBlJuM5k2c+eudGdLxDqXuPCKIj6kpw=="],
 
@@ -2971,7 +2971,7 @@
 
     "responselike": ["responselike@3.0.0", "", { "dependencies": { "lowercase-keys": "3.0.0" } }, "sha512-40yHxbNcl2+rzXvZuVkrYohathsSJlMTXKryG5y8uciHv1+xDLHQpgjG64JUO9nrEq2jGLH6IZ8BcZyw3wrweg=="],
 
-    "restore-cursor": ["restore-cursor@3.1.0", "", { "dependencies": { "onetime": "5.1.2", "signal-exit": "3.0.7" } }, "sha512-l+sSefzHpj5qimhFSE5a8nufZYAM3sBSVMAPtYkmC+4EH2anSGaEMXSD0izRQbu9nfyQ9y5JrVmp7E8oZrUjvA=="],
+    "restore-cursor": ["restore-cursor@5.1.0", "", { "dependencies": { "onetime": "7.0.0", "signal-exit": "4.1.0" } }, "sha512-oMA2dcrw6u0YfxJQXm342bFKX/E4sG9rbTzO9ptUcR/e8A33cHuvStiYOwH7fszkZlZ1z/ta9AAoPk2F4qIOHA=="],
 
     "retry": ["retry@0.13.1", "", {}, "sha512-XQBQ3I8W1Cge0Seh+6gjj03LbmRFWuoszgK9ooCpwYIrhhoO80pfq4cUkU5DkknwfOfFteRwlZ56PYOGYyFWdg=="],
 
@@ -3963,8 +3963,6 @@
 
     "clean-css/source-map": ["source-map@0.6.1", "", {}, "sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g=="],
 
-    "cli-cursor/restore-cursor": ["restore-cursor@5.1.0", "", { "dependencies": { "onetime": "7.0.0", "signal-exit": "4.1.0" } }, "sha512-oMA2dcrw6u0YfxJQXm342bFKX/E4sG9rbTzO9ptUcR/e8A33cHuvStiYOwH7fszkZlZ1z/ta9AAoPk2F4qIOHA=="],
-
     "cli-table3/string-width": ["string-width@4.2.3", "", { "dependencies": { "emoji-regex": "8.0.0", "is-fullwidth-code-point": "3.0.0", "strip-ansi": "6.0.1" } }, "sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g=="],
 
     "cliui/string-width": ["string-width@4.2.3", "", { "dependencies": { "emoji-regex": "8.0.0", "is-fullwidth-code-point": "3.0.0", "strip-ansi": "6.0.1" } }, "sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g=="],
@@ -4313,6 +4311,8 @@
 
     "no-case/tslib": ["tslib@2.8.1", "", {}, "sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w=="],
 
+    "node-fzf/restore-cursor": ["restore-cursor@3.1.0", "", { "dependencies": { "onetime": "5.1.2", "signal-exit": "3.0.7" } }, "sha512-l+sSefzHpj5qimhFSE5a8nufZYAM3sBSVMAPtYkmC+4EH2anSGaEMXSD0izRQbu9nfyQ9y5JrVmp7E8oZrUjvA=="],
+
     "node-fzf/string-width": ["string-width@2.1.1", "", { "dependencies": { "is-fullwidth-code-point": "2.0.0", "strip-ansi": "4.0.0" } }, "sha512-nOqH59deCq9SRHlxq1Aw85Jnt4w6KvLKqWVik6oA9ZklXLNIOlqg4F2yrT1MVaTjAqvVwdfeZ7w7aCvJD7ugkw=="],
 
     "ora/string-width": ["string-width@8.2.0", "", { "dependencies": { "get-east-asian-width": "1.5.0", "strip-ansi": "7.2.0" } }, "sha512-6hJPQ8N0V0P3SNmP6h2J99RLuzrWz2gvT7VnK5tKvrNqJoyS9W4/Fb8mo31UiPvy00z7DQXkP2hnKBVav76thw=="],
@@ -4387,7 +4387,7 @@
 
     "renderkid/htmlparser2": ["htmlparser2@6.1.0", "", { "dependencies": { "domelementtype": "2.3.0", "domhandler": "4.3.1", "domutils": "2.8.0", "entities": "2.2.0" } }, "sha512-gyyPk6rgonLFEDGoeRgQNaEUvdJ4ktTmmUh/h2t7s+M8oPpIPxgNACWa+6ESR57kXstwqPiCut0V8NRpcwgU7A=="],
 
-    "restore-cursor/signal-exit": ["signal-exit@3.0.7", "", {}, "sha512-wnD2ZE+l+SPC/uoS0vXeE9L1+0wuaMqKlfz9AMUo38JsyLSBWSFcHR1Rri62LZc12vLr1gb3jl7iwQhgwpAbGQ=="],
+    "restore-cursor/onetime": ["onetime@7.0.0", "", { "dependencies": { "mimic-function": "5.0.1" } }, "sha512-VXJjc87FScF88uafS3JllDgvAm+c/Slfz06lorj2uAY34rlUu0Nt+v8wreiImcrgAjjIHp1rXpTDlLOGw29WwQ=="],
 
     "rimraf/glob": ["glob@7.2.3", "", { "dependencies": { "fs.realpath": "1.0.0", "inflight": "1.0.6", "inherits": "2.0.4", "minimatch": "3.1.5", "once": "1.4.0", "path-is-absolute": "1.0.1" } }, "sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q=="],
 
@@ -6771,8 +6771,6 @@
 
     "body-parser/debug/ms": ["ms@2.0.0", "", {}, "sha512-Tpp60P6IUJDTuOq/5Z8cdskzJujfwqfOTkrwIwj7IRISpnkJnT6SyJ4PCPnGMoFjC9ddhal5KVIYtAt97ix05A=="],
 
-    "cli-cursor/restore-cursor/onetime": ["onetime@7.0.0", "", { "dependencies": { "mimic-function": "5.0.1" } }, "sha512-VXJjc87FScF88uafS3JllDgvAm+c/Slfz06lorj2uAY34rlUu0Nt+v8wreiImcrgAjjIHp1rXpTDlLOGw29WwQ=="],
-
     "cli-table3/string-width/emoji-regex": ["emoji-regex@8.0.0", "", {}, "sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A=="],
 
     "cliui/string-width/emoji-regex": ["emoji-regex@8.0.0", "", {}, "sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A=="],
@@ -6920,6 +6918,8 @@
     "mini-css-extract-plugin/schema-utils/ajv": ["ajv@8.17.1", "", { "dependencies": { "fast-deep-equal": "3.1.3", "fast-uri": "3.1.0", "json-schema-traverse": "1.0.0", "require-from-string": "2.0.2" } }, "sha512-B/gBuNg5SiMTrPkC+A2+cW0RszwxYmn6VYxB/inlBStS5nx6xHIt/ehKRhIMhqusl7a8LjQoZnjCs5vhwxOQ1g=="],
 
     "mini-css-extract-plugin/schema-utils/ajv-keywords": ["ajv-keywords@5.1.0", "", { "dependencies": { "fast-deep-equal": "3.1.3" }, "peerDependencies": { "ajv": "8.17.1" } }, "sha512-YCS/JNFAUyr5vAuhk1DWm1CBxRHW9LbJ2ozWeemrIqpbsqKjHVxYPyi5GC0rjZIT5JxJ3virVTS8wk4i/Z+krw=="],
+
+    "node-fzf/restore-cursor/signal-exit": ["signal-exit@3.0.7", "", {}, "sha512-wnD2ZE+l+SPC/uoS0vXeE9L1+0wuaMqKlfz9AMUo38JsyLSBWSFcHR1Rri62LZc12vLr1gb3jl7iwQhgwpAbGQ=="],
 
     "node-fzf/string-width/is-fullwidth-code-point": ["is-fullwidth-code-point@2.0.0", "", {}, "sha512-VHskAKYM8RfSFXwee5t5cbN5PZeq1Wrh6qd5bkyiXIf6UQcN6w/A0eXM9r6t8d+GYOh+o6ZhiEnb88LN/Y8m2w=="],
 

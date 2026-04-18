@@ -1,6 +1,6 @@
 {
-  "name": "@discordx/utilities",
-  "version": "8.0.0",
+  "name": "@yohan971/utilities",
+  "version": "0.1.0",
   "private": false,
   "description": "Utilities package for enhancing discordx functionality",
   "keywords": [
@@ -48,15 +48,15 @@
     "dayjs": "^1.11.20"
   },
   "devDependencies": {
-    "@discordx/importer": "workspace:^",
-    "@discordx/pagination": "workspace:^",
+    "@yohan971/importer": "workspace:^",
+    "@yohan971/pagination": "workspace:^",
     "discord.js": "^14.25.1",
-    "discordx": "workspace:^",
+    "@yohan971/discordx": "workspace:^",
     "typescript": "5.9.3"
   },
   "peerDependencies": {
     "discord.js": ">=14 || ^14.0.0-dev",
-    "discordx": "*"
+    "@yohan971/discordx": "workspace:^"
   },
   "engines": {
     "bun": ">=1.2.0"

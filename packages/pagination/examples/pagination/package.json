@@ -2,8 +2,8 @@
   "name": "pagination-example",
   "private": true,
   "dependencies": {
-    "@discordx/importer": "workspace:^",
-    "@discordx/pagination": "workspace:^",
-    "discordx": "workspace:^"
+    "@yohan971/importer": "workspace:^",
+    "@yohan971/pagination": "workspace:^",
+    "@yohan971/discordx": "workspace:^"
   }
 }

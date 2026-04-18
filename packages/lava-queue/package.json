@@ -1,6 +1,6 @@
 {
-  "name": "@discordx/lava-queue",
-  "version": "4.0.10",
+  "name": "@yohan971/lava-queue",
+  "version": "0.1.0",
   "private": false,
   "description": "Queue system for @discordx/lava-player",
   "keywords": [
@@ -49,12 +49,12 @@
     "build:typedoc": "bunx typedoc src/index.ts --out ../../docs/static/api/lava-queue"
   },
   "devDependencies": {
-    "@discordx/lava-player": "workspace:^",
+    "@yohan971/lava-player": "workspace:^",
     "discord.js": "^14.25.1",
     "typescript": "5.9.3"
   },
   "peerDependencies": {
-    "@discordx/lava-player": ">=2.2.0",
+    "@yohan971/lava-player": "workspace:^",
     "discord.js": ">=13"
   },
   "engines": {
