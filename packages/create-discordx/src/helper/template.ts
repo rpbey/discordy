@@ -2,19 +2,10 @@
  * Local-template copier — no network needed. Templates are shipped inside the package.
  */
 import { promises as fs, statSync } from "node:fs";
-import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
-
-function selfDir(): string {
-  try {
-    return dirname(fileURLToPath(import.meta.url));
-  } catch {
-    return typeof __dirname === "string" ? __dirname : process.cwd();
-  }
-}
+import { join } from "node:path";
 
 function resolveTemplatesRoot(): string {
-  const here = selfDir();
+  const here = import.meta.dir;
   const candidates = [
     join(here, "..", "templates"),
     join(here, "..", "..", "templates"),
@@ -86,16 +77,16 @@ export async function SubstituteTokens(
   const filesToRewrite = ["package.json", "README.md", ".env.example"];
   for (const rel of filesToRewrite) {
     const path = join(projectRoot, rel);
-    try {
-      const content = await fs.readFile(path, "utf8");
-      let out = content;
-      for (const [k, v] of Object.entries(tokens)) {
-        out = out.replaceAll(`{{${k}}}`, v);
-      }
-      if (out !== content) {
-        await fs.writeFile(path, out, "utf8");
-      }
-    } catch {}
+    const file = Bun.file(path);
+    if (!(await file.exists())) continue;
+    const content = await file.text();
+    let out = content;
+    for (const [k, v] of Object.entries(tokens)) {
+      out = out.replaceAll(`{{${k}}}`, v);
+    }
+    if (out !== content) {
+      await Bun.write(path, out);
+    }
   }
 }
 

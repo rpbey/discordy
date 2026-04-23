@@ -26,10 +26,7 @@ jobs:
       - name: check out code 🛎
         uses: actions/checkout@main
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@master
-
-      - name: Install Node
+      - name: Setup Bun
         uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
