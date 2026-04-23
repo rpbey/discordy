@@ -1,6 +1,7 @@
 * text=auto eol=crlf
 
 node_modules
+bun.lock
 dist
 .turbo
 .DS_Store

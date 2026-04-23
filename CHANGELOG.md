@@ -61,3 +61,16 @@ Fork of [discordx-ts/discordx](https://github.com/discordx-ts/discordx). Core fe
 ### Note
 
 `@rpbey/create-discordx` publishes as `0.1.2` (already had `0.1.1` from the earlier scope rebrand).
+
+## 0.1.2 — 2026-04-23
+
+### Fixed
+
+- **`create-discordx` template bugfix** — the `basic` template shipped without an `Events.InteractionCreate` handler, so `/ping` (and any slash command) never routed to `client.executeInteraction`. Scaffolded bots appeared "online" but silently ignored interactions. Added the handler + switched to `Events.ClientReady` / `Bun.env` for Bun-first idiomaticity.
+- **`create-discordx/template.ts`** — replaced `fileURLToPath(import.meta.url)` + `fs.readFile/writeFile` with `import.meta.dir` and `Bun.file` / `Bun.write`. Removes the `node:url` import entirely.
+- **Preinstall guard** — running `bun install` inside `packages/discordy/` while it's consumed as a sub-workspace of a parent monorepo created a second isolated store (`packages/discordy/node_modules/.bun/discord.js@14.26.3`) distinct from the outer one. `instanceof` checks across package boundaries then failed (discord-player → `InvalidClientInstance`). Added `scripts/preinstall-guard.ts` that detects an outer `bun.lock` referencing `@rpbey/discordx` and aborts with a clear error. Bypass with `DISCORDY_STANDALONE=1` for CI publish flows.
+
+### Chore
+
+- CI workflows (`build.yml`, `publish-changeset.yml`, `build-documentation.yml`, `publish-documentation.yml`) — dropped residual `pnpm/action-setup@master` steps and replaced `pnpm publish -r --no-git-checks` with `bunx changeset publish`. Pipeline is now 100 % Bun-native.
+- `templates/basic/tsconfig.json` — added `moduleDetection: "force"` + `verbatimModuleSyntax: true` for stricter ESM semantics.

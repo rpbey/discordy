@@ -30,6 +30,7 @@
     "rpbey (https://github.com/rpbey)"
   ],
   "scripts": {
+    "preinstall": "bun scripts/preinstall-guard.ts",
     "build": "turbo run build",
     "build:typedoc": "turbo run build:typedoc",
     "format": "biome format --write",
