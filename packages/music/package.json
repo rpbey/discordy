@@ -19,7 +19,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/discordx-ts/discordx.git"
+    "url": "git+https://github.com/rpbey/discordy.git",
+    "directory": "packages/music"
   },
   "license": "Apache-2.0",
   "contributors": [
@@ -69,6 +70,7 @@
     "bun": ">=1.2.0"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "registry": "https://npm.pkg.github.com"
   }
 }
