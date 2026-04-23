@@ -5,7 +5,7 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import type { Events } from "discord.js";
-import { Discord, On, type ArgsOf } from "discordx";
+import { Discord, On, type ArgsOf } from "@rpbey/discordx";
 
 @Discord()
 export class Example {

@@ -4,9 +4,9 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import { PermissionGuard, type PermissionHandler } from "@discordx/utilities";
-import { CommandInteraction, type PermissionsString } from "discord.js";
-import { Discord, Guard, Slash } from "discordx";
+import { PermissionGuard, type PermissionHandler } from "@rpbey/utilities";
+import { CommandInteraction, MessageFlags, type PermissionsString } from "discord.js";
+import { Discord, Guard, Slash } from "@rpbey/discordx";
 
 @Discord()
 export class PermissionGuards {
@@ -36,7 +36,7 @@ export class PermissionGuards {
   @Guard(
     PermissionGuard(["BanMembers"], {
       content: "You do not have the role `BanMembers`",
-      ephemeral: true,
+      flags: MessageFlags.Ephemeral,
     }),
   )
   async banMembers2(interaction: CommandInteraction): Promise<void> {
@@ -55,7 +55,7 @@ export class PermissionGuards {
   @Guard(
     PermissionGuard(PermissionGuards.resolvePermission, {
       content: "You do not have the role `BanMembers`",
-      ephemeral: true,
+      flags: MessageFlags.Ephemeral,
     }),
   )
   async banMembers3(interaction: CommandInteraction): Promise<void> {

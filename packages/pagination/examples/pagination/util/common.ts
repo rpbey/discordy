@@ -4,7 +4,7 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import type { PaginationItem } from "@discordx/pagination";
+import type { PaginationItem } from "@rpbey/pagination";
 import { EmbedBuilder } from "discord.js";
 
 export function GeneratePages(limit?: number): PaginationItem[] {

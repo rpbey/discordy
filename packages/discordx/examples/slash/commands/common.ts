@@ -19,7 +19,7 @@ import {
   type Role,
   type User,
 } from "discord.js";
-import { ButtonComponent, Discord, Slash, SlashOption } from "discordx";
+import { ButtonComponent, Discord, Slash, SlashOption } from "@rpbey/discordx";
 
 @Discord()
 export class Example {

@@ -4,9 +4,9 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import { Pagination } from "@discordx/pagination";
+import { Pagination } from "@rpbey/pagination";
 import { EmbedBuilder, type CommandInteraction } from "discord.js";
-import { Discord, MetadataStorage, Slash } from "discordx";
+import { Discord, MetadataStorage, Slash } from "@rpbey/discordx";
 
 @Discord()
 export class Example {

@@ -4,7 +4,7 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import { RateLimit, TIME_UNIT } from "@discordx/utilities";
+import { RateLimit, TIME_UNIT } from "@rpbey/utilities";
 import type { CommandInteraction } from "discord.js";
 import {
   Discord,
@@ -12,7 +12,7 @@ import {
   SimpleCommand,
   Slash,
   type SimpleCommandMessage,
-} from "discordx";
+} from "@rpbey/discordx";
 
 @Discord()
 export class RateLimitExample {

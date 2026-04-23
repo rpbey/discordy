@@ -21,7 +21,7 @@ import {
   Slash,
   SlashChoice,
   SlashOption,
-} from "discordx";
+} from "@rpbey/discordx";
 
 enum RPSChoice {
   Rock = "Rock",

@@ -4,9 +4,9 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import { dirname, importx } from "@discordx/importer";
+import { dirname, importx } from "@rpbey/importer";
 import { Events, IntentsBitField } from "discord.js";
-import { Client, DIService, typeDiDependencyRegistryEngine } from "discordx";
+import { Client, DIService, typeDiDependencyRegistryEngine } from "@rpbey/discordx";
 import { Container, Service } from "typedi";
 
 // initialize TypeDI container

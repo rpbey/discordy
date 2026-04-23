@@ -11,7 +11,7 @@ import {
   SimpleCommandOption,
   SimpleCommandOptionType,
   type SimpleCommandMessage,
-} from "discordx";
+} from "@rpbey/discordx";
 
 @Discord()
 export class Example {

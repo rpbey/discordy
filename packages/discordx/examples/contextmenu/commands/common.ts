@@ -9,7 +9,7 @@ import {
   type MessageContextMenuCommandInteraction,
   type UserContextMenuCommandInteraction,
 } from "discord.js";
-import { ContextMenu, Discord } from "discordx";
+import { ContextMenu, Discord } from "@rpbey/discordx";
 
 @Discord()
 export class Example {

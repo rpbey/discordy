@@ -8,7 +8,7 @@ import {
   PermissionFlagsBits,
   type ChatInputCommandInteraction,
 } from "discord.js";
-import { Discord, Slash } from "discordx";
+import { Discord, Slash } from "@rpbey/discordx";
 
 @Discord()
 export class Example {

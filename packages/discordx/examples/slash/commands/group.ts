@@ -12,7 +12,7 @@ import {
   type Role,
   type User,
 } from "discord.js";
-import { Discord, Slash, SlashGroup, SlashOption } from "discordx";
+import { Discord, Slash, SlashGroup, SlashOption } from "@rpbey/discordx";
 
 @Discord()
 @SlashGroup({ description: "testing", name: "testing" })

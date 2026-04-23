@@ -9,7 +9,7 @@ import {
   SlashCommandStringOption,
   type CommandInteraction,
 } from "discord.js";
-import { Discord, Slash, SlashOption } from "discordx";
+import { Discord, Slash, SlashOption } from "@rpbey/discordx";
 
 const cmd = new SlashCommandBuilder()
   .setName("planet")

@@ -7,9 +7,9 @@
 import {
   TsyringeDependencyRegistryEngine,
   tsyringeDependencyRegistryEngine,
-} from "@discordx/di";
+} from "@rpbey/di";
 import type { CommandInteraction } from "discord.js";
-import { Discord, DIService, Slash } from "discordx";
+import { Discord, DIService, Slash } from "@rpbey/discordx";
 import { container, injectable, singleton } from "tsyringe";
 
 @singleton()

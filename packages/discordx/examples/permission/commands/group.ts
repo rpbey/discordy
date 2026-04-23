@@ -5,7 +5,7 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import type { ChatInputCommandInteraction } from "discord.js";
-import { Discord, Slash, SlashGroup } from "discordx";
+import { Discord, Slash, SlashGroup } from "@rpbey/discordx";
 
 @Discord()
 @SlashGroup({

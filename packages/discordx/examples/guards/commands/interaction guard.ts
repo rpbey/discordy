@@ -8,7 +8,7 @@ import {
   ApplicationCommandType,
   type ContextMenuCommandInteraction,
 } from "discord.js";
-import { ContextMenu, Discord, Guard, type GuardFunction } from "discordx";
+import { ContextMenu, Discord, Guard, type GuardFunction } from "@rpbey/discordx";
 
 export const InteractionGuard: GuardFunction<
   ContextMenuCommandInteraction

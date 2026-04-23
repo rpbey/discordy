@@ -5,7 +5,7 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import type { MessageReaction, User } from "discord.js";
-import { Discord, Reaction } from "discordx";
+import { Discord, Reaction } from "@rpbey/discordx";
 
 @Discord()
 export class Example {

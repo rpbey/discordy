@@ -23,7 +23,7 @@ import {
   type ArgsOf,
   type GuardFunction,
   SimpleCommandMessage,
-} from "discordx";
+} from "@rpbey/discordx";
 
 /**
  * Guard to prevent bot from executing discordx methods

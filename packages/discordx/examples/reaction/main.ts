@@ -4,9 +4,9 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import { dirname, importx } from "@discordx/importer";
+import { dirname, importx } from "@rpbey/importer";
 import { Events, IntentsBitField, Partials } from "discord.js";
-import { Client } from "discordx";
+import { Client } from "@rpbey/discordx";
 
 // biome-ignore lint/complexity/noStaticOnlyClass: ignore
 export class Main {

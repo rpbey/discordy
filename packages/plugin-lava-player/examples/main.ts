@@ -4,11 +4,11 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import "@discordx/plugin-lava-player";
-import "@discordx/plugin-lava-player/lavalyrics";
+import "@rpbey/plugin-lava-player";
+import "@rpbey/plugin-lava-player/lavalyrics";
 
 import { Events, IntentsBitField } from "discord.js";
-import { Client } from "discordx";
+import { Client } from "@rpbey/discordx";
 
 // biome-ignore lint/complexity/noStaticOnlyClass: ignore
 export class Main {

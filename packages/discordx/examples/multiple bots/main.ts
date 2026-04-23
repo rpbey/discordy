@@ -4,9 +4,9 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import { dirname, importx } from "@discordx/importer";
+import { dirname, importx } from "@rpbey/importer";
 import { Events, IntentsBitField } from "discord.js";
-import { Client, MetadataStorage } from "discordx";
+import { Client, MetadataStorage } from "@rpbey/discordx";
 
 const botA = new Client({
   // botGuilds: [(client) => client.guilds.cache.map((guild) => guild.id)],

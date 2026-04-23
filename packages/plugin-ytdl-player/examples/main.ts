@@ -4,10 +4,10 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import "@discordx/plugin-ytdl-player";
+import "@rpbey/plugin-ytdl-player";
 
 import { Events, IntentsBitField } from "discord.js";
-import { Client } from "discordx";
+import { Client } from "@rpbey/discordx";
 
 // biome-ignore lint/complexity/noStaticOnlyClass: ignore
 export class Main {

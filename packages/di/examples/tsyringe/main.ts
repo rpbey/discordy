@@ -6,7 +6,7 @@
  */
 import "reflect-metadata";
 
-import { DIService, tsyringeDependencyRegistryEngine } from "@discordx/di";
+import { DIService, tsyringeDependencyRegistryEngine } from "@rpbey/di";
 import { container, injectable, singleton } from "tsyringe";
 
 @singleton()

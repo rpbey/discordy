@@ -10,7 +10,7 @@ import {
   DIService,
   Slash,
   typeDiDependencyRegistryEngine,
-} from "discordx";
+} from "@rpbey/discordx";
 import { Container, Inject, Service } from "typedi";
 
 @Service()

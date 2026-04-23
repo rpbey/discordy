@@ -4,9 +4,9 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import { Pagination } from "@discordx/pagination";
+import { Pagination } from "@rpbey/pagination";
 import type { CommandInteraction } from "discord.js";
-import { Discord, Slash } from "discordx";
+import { Discord, Slash } from "@rpbey/discordx";
 
 import { GeneratePages } from "../util/common.js";
 

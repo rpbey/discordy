@@ -5,7 +5,7 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import { SlashCommandBuilder, type CommandInteraction } from "discord.js";
-import { Discord, Slash } from "discordx";
+import { Discord, Slash } from "@rpbey/discordx";
 
 const cmd = new SlashCommandBuilder()
   .setName("ping")

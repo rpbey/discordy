@@ -10,7 +10,7 @@ import {
   type CommandInteraction,
   type User,
 } from "discord.js";
-import { Discord, Slash, SlashOption } from "discordx";
+import { Discord, Slash, SlashOption } from "@rpbey/discordx";
 
 const cmd = new SlashCommandBuilder()
   .setName("hello")

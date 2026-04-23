@@ -4,7 +4,7 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import { Discord, On, type RestArgsOf } from "discordx";
+import { Discord, On, type RestArgsOf } from "@rpbey/discordx";
 
 @Discord()
 export class Example {

@@ -4,7 +4,7 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import { type IsGuardUserCallback, IsGuildUser } from "@discordx/utilities";
+import { type IsGuardUserCallback, IsGuildUser } from "@rpbey/utilities";
 import { Events } from "discord.js";
 import {
   type ArgsOf,
@@ -13,7 +13,7 @@ import {
   On,
   SimpleCommand,
   type SimpleCommandMessage,
-} from "discordx";
+} from "@rpbey/discordx";
 
 const OwnerOnly: IsGuardUserCallback = ({ client, user }) => {
   if (!user) {

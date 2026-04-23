@@ -5,7 +5,7 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import type { CommandInteraction } from "discord.js";
-import type { GuardFunction } from "discordx";
+import type { GuardFunction } from "@rpbey/discordx";
 
 export const ErrorHandler: GuardFunction<CommandInteraction> = async (
   interaction,

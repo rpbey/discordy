@@ -4,9 +4,9 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import { tsyringeDependencyRegistryEngine } from "@discordx/di";
+import { tsyringeDependencyRegistryEngine } from "@rpbey/di";
 import type { CommandInteraction } from "discord.js";
-import { Discord, DIService, Slash } from "discordx";
+import { Discord, DIService, Slash } from "@rpbey/discordx";
 import { container, injectable, singleton } from "tsyringe";
 
 @singleton()

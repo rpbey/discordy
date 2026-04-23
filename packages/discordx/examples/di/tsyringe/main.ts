@@ -6,10 +6,10 @@
  */
 import "reflect-metadata";
 
-import { tsyringeDependencyRegistryEngine } from "@discordx/di";
-import { dirname, importx } from "@discordx/importer";
+import { tsyringeDependencyRegistryEngine } from "@rpbey/di";
+import { dirname, importx } from "@rpbey/importer";
 import { Events, IntentsBitField } from "discord.js";
-import { Client, DIService } from "discordx";
+import { Client, DIService } from "@rpbey/discordx";
 import { container } from "tsyringe";
 
 // initialize TSyringe container

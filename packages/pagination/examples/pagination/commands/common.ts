@@ -4,7 +4,7 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import { Pagination, PaginationResolver } from "@discordx/pagination";
+import { Pagination, PaginationResolver } from "@rpbey/pagination";
 import {
   ActionRowBuilder,
   ButtonBuilder,
@@ -14,7 +14,7 @@ import {
   type CommandInteraction,
   type MessageActionRowComponentBuilder,
 } from "discord.js";
-import { Discord, On, Slash, type ArgsOf } from "discordx";
+import { Discord, On, Slash, type ArgsOf } from "@rpbey/discordx";
 
 import { GeneratePages } from "../util/common.js";
 

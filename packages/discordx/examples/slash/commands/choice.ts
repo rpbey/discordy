@@ -8,7 +8,7 @@ import {
   ApplicationCommandOptionType,
   type CommandInteraction,
 } from "discord.js";
-import { Discord, Slash, SlashChoice, SlashOption } from "discordx";
+import { Discord, Slash, SlashChoice, SlashOption } from "@rpbey/discordx";
 
 @Discord()
 export class Example {

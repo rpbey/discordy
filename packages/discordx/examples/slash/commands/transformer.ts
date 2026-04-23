@@ -8,7 +8,7 @@ import {
   ApplicationCommandOptionType,
   type ChatInputCommandInteraction,
 } from "discord.js";
-import { Discord, Slash, SlashOption } from "discordx";
+import { Discord, Slash, SlashOption } from "@rpbey/discordx";
 
 class Document {
   constructor(

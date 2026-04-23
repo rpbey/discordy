@@ -5,7 +5,7 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import { Events } from "discord.js";
-import { Discord, On } from "discordx";
+import { Discord, On } from "@rpbey/discordx";
 
 enum PriorityLevel {
   High,

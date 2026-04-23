@@ -11,7 +11,7 @@ import {
   type MessageActionRowComponentBuilder,
   type StringSelectMenuInteraction,
 } from "discord.js";
-import { Discord, SelectMenuComponent, Slash } from "discordx";
+import { Discord, SelectMenuComponent, Slash } from "@rpbey/discordx";
 
 const roles = [
   { label: "Principal", value: "principal" },

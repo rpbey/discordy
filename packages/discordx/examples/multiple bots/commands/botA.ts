@@ -5,7 +5,7 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import type { CommandInteraction } from "discord.js";
-import { Bot, Discord, Slash } from "discordx";
+import { Bot, Discord, Slash } from "@rpbey/discordx";
 
 @Discord()
 @Bot("botA") // A bot id is crucial

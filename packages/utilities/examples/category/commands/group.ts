@@ -4,7 +4,7 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import { Category, type ICategory } from "@discordx/utilities";
+import { Category, type ICategory } from "@rpbey/utilities";
 import type { CommandInteraction } from "discord.js";
 import {
   Discord,
@@ -12,7 +12,7 @@ import {
   Slash,
   SlashGroup,
   type DApplicationCommand,
-} from "discordx";
+} from "@rpbey/discordx";
 
 @Discord()
 @Category("Admin Commands")

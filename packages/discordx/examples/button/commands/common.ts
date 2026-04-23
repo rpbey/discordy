@@ -12,7 +12,7 @@ import {
   type CommandInteraction,
   type MessageActionRowComponentBuilder,
 } from "discord.js";
-import { ButtonComponent, Discord, Slash } from "discordx";
+import { ButtonComponent, Discord, Slash } from "@rpbey/discordx";
 
 @Discord()
 export class Example {

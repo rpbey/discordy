@@ -12,7 +12,7 @@ import {
   TextInputBuilder,
   TextInputStyle,
 } from "discord.js";
-import { Discord, ModalComponent, Slash } from "discordx";
+import { Discord, ModalComponent, Slash } from "@rpbey/discordx";
 
 @Discord()
 export class Example {

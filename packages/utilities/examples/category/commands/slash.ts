@@ -4,8 +4,8 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import { Pagination } from "@discordx/pagination";
-import { Category, Description, type ICategory } from "@discordx/utilities";
+import { Pagination } from "@rpbey/pagination";
+import { Category, Description, type ICategory } from "@rpbey/utilities";
 import { EmbedBuilder, type CommandInteraction } from "discord.js";
 import {
   DApplicationCommand,
@@ -13,7 +13,7 @@ import {
   MetadataStorage,
   Slash,
   type DSimpleCommand,
-} from "discordx";
+} from "@rpbey/discordx";
 
 @Discord()
 @Category("Admin Commands")

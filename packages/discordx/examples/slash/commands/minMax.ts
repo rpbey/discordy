@@ -8,7 +8,7 @@ import {
   ApplicationCommandOptionType,
   type CommandInteraction,
 } from "discord.js";
-import { Discord, Slash, SlashOption } from "discordx";
+import { Discord, Slash, SlashOption } from "@rpbey/discordx";
 
 @Discord()
 export class MinMaxExample {
