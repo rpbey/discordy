@@ -1,2 +1,2 @@
 bun run lint
-bun run build
+bunx turbo run build --filter='!./docs'

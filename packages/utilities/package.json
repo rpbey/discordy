@@ -51,13 +51,13 @@
   "devDependencies": {
     "@rpbey/importer": "workspace:^",
     "@rpbey/pagination": "workspace:^",
-    "discord.js": "^14.25.1",
+    "discord.js": "^14.26.3",
     "@rpbey/discordx": "workspace:^",
     "typescript": "5.9.3"
   },
   "peerDependencies": {
     "discord.js": ">=14 || ^14.0.0-dev",
-    "@rpbey/discordx": "*"
+    "@rpbey/discordx": ">=0.1.0"
   },
   "engines": {
     "bun": ">=1.2.0"
