@@ -1,90 +1,105 @@
 /*
- * -------------------------------------------------------------------------------------------------------
- * Copyright (c) Vijay Meena <vijayymmeena@gmail.com> (https://github.com/vijayymmeena). All rights reserved.
- * Licensed under the Apache License. See License.txt in the project root for license information.
- * -------------------------------------------------------------------------------------------------------
+ * Local-template copier — no network needed. Templates are shipped inside the package.
  */
-import { promises as fs } from "node:fs";
-import { tmpdir } from "node:os";
-import { join } from "node:path";
-import * as tar from "tar";
+import { promises as fs, statSync } from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 
-/**
- * Get templates list from https://github.com/discordx-ts/templates
- *
- * @returns
- */
-export async function GetTemplates(): Promise<
-  { title: string; value: string }[]
-> {
+function selfDir(): string {
   try {
-    const res = await fetch(
-      "https://api.github.com/repos/discordx-ts/templates/contents",
-    );
-    if (!res.ok) return [];
-    const data = (await res.json()) as {
-      name: string;
-      path: string;
-      type: string;
-    }[];
-    return data
-      .filter((row) => row.type === "dir" && /^[0-9].+/.test(row.name))
-      .map((row) => ({ title: row.name, value: row.path }));
+    return dirname(fileURLToPath(import.meta.url));
+  } catch {
+    return typeof __dirname === "string" ? __dirname : process.cwd();
+  }
+}
+
+function resolveTemplatesRoot(): string {
+  const here = selfDir();
+  const candidates = [
+    join(here, "..", "templates"),
+    join(here, "..", "..", "templates"),
+    join(here, "templates"),
+  ];
+  for (const p of candidates) {
+    try {
+      if (statSync(p).isDirectory()) return p;
+    } catch {}
+  }
+  return candidates[0]!;
+}
+
+async function copyDir(src: string, dest: string): Promise<void> {
+  await fs.mkdir(dest, { recursive: true });
+  const entries = await fs.readdir(src, { withFileTypes: true });
+  for (const entry of entries) {
+    const srcPath = join(src, entry.name);
+    const destPath = join(dest, entry.name);
+    if (entry.isDirectory()) {
+      await copyDir(srcPath, destPath);
+    } else {
+      await fs.copyFile(srcPath, destPath);
+    }
+  }
+}
+
+export async function ListTemplates(): Promise<
+  { title: string; value: string; description?: string }[]
+> {
+  const root = resolveTemplatesRoot();
+  try {
+    const entries = await fs.readdir(root, { withFileTypes: true });
+    return entries
+      .filter((e) => e.isDirectory())
+      .map((e) => ({
+        title: e.name,
+        value: e.name,
+        description:
+          e.name === "basic" ? "Minimal bot — @Slash + ready event" : undefined,
+      }));
   } catch {
     return [];
   }
 }
 
-/**
- * Check if the template exists on GitHub
- *
- * @param name template name
- * @returns
- */
-export async function IsTemplateExist(name: string): Promise<boolean> {
+export async function TemplateExists(name: string): Promise<boolean> {
+  const root = resolveTemplatesRoot();
   try {
-    const res = await fetch(
-      `https://api.github.com/repos/discordx-ts/templates/contents/${name}?ref=main`,
-    );
-    return res.ok;
+    const stat = await fs.stat(join(root, name));
+    return stat.isDirectory();
   } catch {
     return false;
   }
 }
 
-async function downloadTar(url: string) {
-  const tempFilename = `discordx-template.temp-${Date.now().toString()}`;
-  const tempFilePath = join(tmpdir(), tempFilename);
-
-  const res = await fetch(url);
-  if (!res.ok || !res.body) {
-    throw new Error(`Failed to download template: HTTP ${res.status}`);
-  }
-  await Bun.write(tempFilePath, res);
-  return tempFilePath;
-}
-
-/**
- * Download and extract template
- *
- * @param root project path
- * @param name project name
- * @returns
- */
-export async function DownloadAndExtractTemplate(
-  root: string,
-  name: string,
+export async function CopyTemplate(
+  projectRoot: string,
+  template: string,
 ): Promise<void> {
-  const tempFile = await downloadTar(
-    "https://codeload.github.com/discordx-ts/templates/tar.gz/main",
-  );
-
-  await tar.x({
-    cwd: root,
-    file: tempFile,
-    filter: (p) => p.includes(`templates-main/${name}`),
-    strip: 2,
-  });
-
-  await fs.unlink(tempFile);
+  const src = join(resolveTemplatesRoot(), template);
+  await copyDir(src, projectRoot);
 }
+
+export async function SubstituteTokens(
+  projectRoot: string,
+  tokens: Record<string, string>,
+): Promise<void> {
+  const filesToRewrite = ["package.json", "README.md", ".env.example"];
+  for (const rel of filesToRewrite) {
+    const path = join(projectRoot, rel);
+    try {
+      const content = await fs.readFile(path, "utf8");
+      let out = content;
+      for (const [k, v] of Object.entries(tokens)) {
+        out = out.replaceAll(`{{${k}}}`, v);
+      }
+      if (out !== content) {
+        await fs.writeFile(path, out, "utf8");
+      }
+    } catch {}
+  }
+}
+
+// Legacy aliases
+export const GetTemplates = ListTemplates;
+export const IsTemplateExist = TemplateExists;
+export const DownloadAndExtractTemplate = CopyTemplate;

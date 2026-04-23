@@ -1,17 +1,16 @@
 #!/usr/bin/env bun
 
 /*
- * -------------------------------------------------------------------------------------------------------
- * Copyright (c) Vijay Meena <vijayymmeena@gmail.com> (https://github.com/vijayymmeena). All rights reserved.
- * Licensed under the Apache License. See License.txt in the project root for license information.
- * -------------------------------------------------------------------------------------------------------
+ * create-discordx — scaffold a discordy (Bun-first) bot.
+ * Licensed under Apache-2.0.
  */
 import path from "node:path";
 import ora from "ora";
 import prompts from "prompts";
 
 import * as color from "./helper/color.js";
-
+import { ParseArgs, HELP_TEXT } from "./helper/args.js";
+import { ApplyFeatures, type Feature } from "./helper/features.js";
 import { IsFolderEmpty, MakeDir } from "./helper/dir.js";
 import { TryGitInit } from "./helper/git.js";
 import { ValidateNpmName } from "./helper/npm.js";
@@ -20,204 +19,167 @@ import {
   InstallPackage,
   PackageManager,
 } from "./helper/package-manager.js";
-import { DownloadAndExtractTemplate, GetTemplates } from "./helper/template.js";
+import {
+  CopyTemplate,
+  ListTemplates,
+  SubstituteTokens,
+  TemplateExists,
+} from "./helper/template.js";
 import { default as version } from "./helper/updater.js";
 
-/**
- * Startup
- */
+const args = ParseArgs(process.argv.slice(2));
+
+if (args.help) {
+  console.log(HELP_TEXT);
+  process.exit(0);
+}
+if (args.version) {
+  console.log(String(version));
+  process.exit(0);
+}
 
 console.log(`
-  ██████╗ ██╗███████╗ ██████╗ ██████╗ ██████╗ ██████╗ ██╗  ██╗
-  ██╔══██╗██║██╔════╝██╔════╝██╔═══██╗██╔══██╗██╔══██╗╚██╗██╔╝
-  ██║  ██║██║███████╗██║     ██║   ██║██████╔╝██║  ██║ ╚███╔╝ 
-  ██║  ██║██║╚════██║██║     ██║   ██║██╔══██╗██║  ██║ ██╔██╗ 
-  ██████╔╝██║███████║╚██████╗╚██████╔╝██║  ██║██████╔╝██╔╝ ██╗
-  ╚═════╝ ╚═╝╚══════╝ ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚═════╝ ╚═╝  ╚═╝
-  ${color.dim(`v${String(version)}`)}
+  ${color.bold(color.cyan("discordy"))} ${color.dim(`v${String(version)}`)}
+  ${color.dim("Bun-first fork of discordx — https://github.com/rpbey/discordy")}
 `);
 
-/**
- * Get project path and name
- */
+// ── Project name ──────────────────────────────────────────────────────────
+let projectName = args.projectName;
 
-let projectPath = "./";
-
-const res = await prompts(
-  {
-    initial: "my-bot",
-    message: "What is your project named?",
-    name: "path",
-    type: "text",
-    validate: (name) => {
-      const validation = ValidateNpmName(path.basename(path.resolve(name)));
-      if (validation.valid) {
-        return true;
-      }
-
-      return `"Invalid project name: ${validation.problems?.[0] ?? "unknown"}`;
+if (!projectName) {
+  const res = await prompts(
+    {
+      initial: "my-bot",
+      message: "Project name",
+      name: "path",
+      type: "text",
+      validate: (name: string) => {
+        const v = ValidateNpmName(path.basename(path.resolve(name)));
+        return v.valid || `Invalid: ${v.problems?.[0] ?? "unknown"}`;
+      },
     },
-  },
-  {
-    onCancel: () => {
-      process.exit();
-    },
-  },
-);
-
-if (typeof res.path === "string") {
-  projectPath = res.path.trim();
+    { onCancel: () => process.exit(0) },
+  );
+  projectName = typeof res.path === "string" ? res.path.trim() : "my-bot";
 }
 
-const resolvedProjectPath = path.resolve(projectPath);
-const projectName = path.basename(resolvedProjectPath);
+const resolvedProjectPath = path.resolve(projectName);
+const finalName = path.basename(resolvedProjectPath);
 
-/**
- * Select package manager
- */
-
-const packageManager = await GetPackageManager();
-
-if (packageManager === null) {
-  process.exit();
+const nameValidation = ValidateNpmName(finalName);
+if (!nameValidation.valid) {
+  console.log(
+    color.red(
+      `✗ Invalid project name: ${nameValidation.problems?.[0] ?? "unknown"}`,
+    ),
+  );
+  process.exit(1);
 }
 
-/**
- * Select template prompt
- */
-
-const templateList = await GetTemplates();
-
-if (!templateList.length) {
-  console.log(color.red("> Unable to load templates :("));
-  process.exit();
+// ── Template ──────────────────────────────────────────────────────────────
+const available = await ListTemplates();
+if (available.length === 0) {
+  console.log(color.red("✗ No bundled templates found"));
+  process.exit(1);
 }
 
-const response = await prompts(
-  {
-    choices: templateList,
-    message: "Pick template",
-    name: "template",
-    type: "select",
-  },
-  {
-    onCancel: () => {
-      process.exit();
-    },
-  },
-);
-
-if (!response.template || typeof response.template !== "string") {
-  console.log(color.red("> Please select a template :("));
-  process.exit();
+let template = args.template;
+if (template && !(await TemplateExists(template))) {
+  console.log(color.red(`✗ Unknown template: ${template}`));
+  console.log(
+    color.dim(`  Available: ${available.map((t) => t.value).join(", ")}`),
+  );
+  process.exit(1);
 }
 
-/**
- * Make project directory
- */
+if (!template) {
+  if (available.length === 1) {
+    template = available[0]!.value;
+  } else {
+    const res = await prompts(
+      {
+        choices: available,
+        message: "Template",
+        name: "template",
+        type: "select",
+      },
+      { onCancel: () => process.exit(0) },
+    );
+    template = res.template as string;
+  }
+}
 
+// ── Features ──────────────────────────────────────────────────────────────
+const features = args.features as Feature[];
+
+// ── Directory ─────────────────────────────────────────────────────────────
 try {
   await MakeDir(resolvedProjectPath);
 } catch (err) {
-  console.log(color.red("> Failed to create specified directory :("));
-  console.log(err);
-  process.exit();
+  console.log(color.red("✗ Failed to create directory"));
+  console.error(err);
+  process.exit(1);
 }
 
-/**
- * Make sure directory is clean
- */
-
-if (!IsFolderEmpty(resolvedProjectPath, projectName)) {
-  process.exit();
+if (!IsFolderEmpty(resolvedProjectPath, finalName)) {
+  process.exit(1);
 }
 
-/**
- * Download and extract template
- */
-
-const spinner = ora({
-  text: color.bold("Downloading template..."),
-}).start();
-
+// ── Copy + token substitution ─────────────────────────────────────────────
+const spinner = ora({ text: color.bold("Scaffolding…") }).start();
 try {
-  await DownloadAndExtractTemplate(resolvedProjectPath, response.template);
-  spinner.succeed(color.bold("Downloaded template"));
+  await CopyTemplate(resolvedProjectPath, template!);
+  await SubstituteTokens(resolvedProjectPath, { PROJECT_NAME: finalName });
+  if (features.length > 0) {
+    await ApplyFeatures(resolvedProjectPath, features);
+  }
+  spinner.succeed(color.bold(`Scaffolded ${color.greenBright(finalName)}`));
 } catch (err) {
-  spinner.fail(color.bold("Failed to download selected template :("));
-  console.log(err);
-  process.exit();
+  spinner.fail(color.bold("Failed to scaffold"));
+  console.error(err);
+  process.exit(1);
 }
 
-/**
- * Update project name
- */
-
-try {
-  const pkgPath = path.join(resolvedProjectPath, "package.json");
-  const pkg = (await Bun.file(pkgPath).json()) as Record<string, unknown>;
-  pkg.name = projectName;
-  await Bun.write(pkgPath, `${JSON.stringify(pkg, null, 2)}\n`);
-} catch (err) {
-  console.log(color.red("> Failed to update project name :("));
-  console.log(err);
+// ── Git ───────────────────────────────────────────────────────────────────
+if (args.git !== false) {
+  TryGitInit(resolvedProjectPath);
 }
 
-/**
- * Init git
- */
-
-TryGitInit(resolvedProjectPath);
-
-/**
- * Install packages
- */
-
-await InstallPackage(resolvedProjectPath, packageManager);
-
-/**
- * End
- */
-const isWin = process.platform === "win32";
-
-console.log(
-  color.greenBright("√"),
-  color.bold("Created discordx project"),
-  color.gray("»"),
-  color.greenBright(projectName),
-);
-
-console.log(color.blueBright("?"), color.bold("Next Steps!"));
-console.log(`\t> cd ${projectPath}`);
-
-if (PackageManager.none === packageManager) {
-  console.log("\t> npm install");
+// ── Install ───────────────────────────────────────────────────────────────
+let pkgManager: PackageManager = PackageManager.none;
+if (args.install !== false) {
+  if (args.install === true) {
+    pkgManager = PackageManager.bun;
+  } else {
+    const detected = await GetPackageManager();
+    if (detected !== null) pkgManager = detected;
+  }
 }
 
-if (isWin) {
-  console.log(color.dim("\t> // Command Prompt (CMD)"));
-  console.log("\t> set BOT_TOKEN=REPLACE_THIS_WITH_YOUR_BOT_TOKEN");
-  console.log(color.dim("\t> // Powershell"));
-  console.log('\t> $ENV:BOT_TOKEN="REPLACE_THIS_WITH_YOUR_BOT_TOKEN"');
-} else {
-  console.log("\t> export BOT_TOKEN=REPLACE_THIS_WITH_YOUR_BOT_TOKEN");
+if (pkgManager !== PackageManager.none) {
+  await InstallPackage(resolvedProjectPath, pkgManager);
 }
 
-if (PackageManager.none === packageManager) {
-  console.log("\t> npm run dev");
-} else {
-  console.log(`\t> ${PackageManager[packageManager]} run dev`);
-}
-
-console.log();
-console.log(color.blueBright("?"), color.bold("Support"));
-console.log("    Discord Server: https://discordx.js.org/discord");
-console.log("     Documentation: https://discordx.js.org");
-console.log("         Templates: https://github.com/discordx-ts/templates");
-console.log("            GitHub: https://github.com/discordx-ts/discordx");
+// ── Done ──────────────────────────────────────────────────────────────────
 console.log();
 console.log(
-  color.greenBright("√"),
-  color.bold("Thank you for using discordx"),
-  color.red("❤️"),
+  color.greenBright("✓"),
+  color.bold("Created"),
+  color.gray("→"),
+  color.greenBright(finalName),
 );
+if (features.length > 0) {
+  console.log(color.dim(`  features: ${features.join(", ")}`));
+}
+console.log();
+console.log(color.blueBright("➜"), color.bold("Next"));
+console.log(`  cd ${projectName}`);
+if (pkgManager === PackageManager.none) {
+  console.log("  bun install");
+}
+console.log("  cp .env.example .env    # set DISCORD_TOKEN");
+console.log(
+  `  ${pkgManager === PackageManager.none ? "bun" : PackageManager[pkgManager]} run dev`,
+);
+console.log();
+console.log(color.dim("  Docs: https://github.com/rpbey/discordy"));
