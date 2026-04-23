@@ -4,7 +4,7 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import type { SlashChoiceType } from "discordx";
+import type { SlashChoiceType } from "@rpbey/discordx";
 
 export function EnumChoice(
   choices: Record<string, string>,

@@ -6,7 +6,7 @@
  */
 
 import { EmbedBuilder, type CommandInteraction } from "discord.js";
-import { Discord, Slash, SlashGroup } from "discordx";
+import { Discord, Slash, SlashGroup } from "@rpbey/discordx";
 
 import { musicPlayerManager } from "../core/index.js";
 import { fromMS } from "../utils/index.js";

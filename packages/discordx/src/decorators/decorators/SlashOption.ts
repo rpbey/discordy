@@ -4,7 +4,7 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import { Modifier, type ParameterDecoratorEx } from "@discordx/internal";
+import { Modifier, type ParameterDecoratorEx } from "@rpbey/internal";
 import {
   SlashCommandAttachmentOption,
   SlashCommandBooleanOption,

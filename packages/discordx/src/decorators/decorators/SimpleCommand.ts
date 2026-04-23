@@ -4,7 +4,7 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import type { MethodDecoratorEx } from "@discordx/internal";
+import type { MethodDecoratorEx } from "@rpbey/internal";
 
 import {
   DSimpleCommand,

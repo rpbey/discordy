@@ -4,7 +4,7 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import { Queue, RepeatMode } from "@discordx/music";
+import { Queue, RepeatMode } from "@rpbey/music";
 import {
   ActionRowBuilder,
   ButtonBuilder,

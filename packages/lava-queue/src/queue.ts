@@ -10,7 +10,7 @@ import {
   type Node,
   type Track,
   type TrackResponse,
-} from "@discordx/lava-player";
+} from "@rpbey/lava-player";
 import { RepeatMode } from "./util.js";
 
 function shuffle<T>(arr: readonly T[]): T[] {

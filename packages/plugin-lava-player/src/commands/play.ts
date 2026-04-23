@@ -5,14 +5,14 @@
  * -------------------------------------------------------------------------------------------------------
  */
 
-import { LoadType } from "@discordx/lava-player";
-import { fromMS } from "@discordx/lava-queue";
+import { LoadType } from "@rpbey/lava-player";
+import { fromMS } from "@rpbey/lava-queue";
 import {
   ApplicationCommandOptionType,
   EmbedBuilder,
   type CommandInteraction,
 } from "discord.js";
-import { Discord, Slash, SlashGroup, SlashOption } from "discordx";
+import { Discord, Slash, SlashGroup, SlashOption } from "@rpbey/discordx";
 
 import { lavaPlayerManager } from "../core/manager.js";
 

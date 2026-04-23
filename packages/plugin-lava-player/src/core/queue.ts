@@ -4,20 +4,9 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import { fromMS, Queue, RepeatMode } from "@discordx/lava-queue";
-import { Pagination, PaginationResolver } from "@discordx/pagination";
-import {
-  ActionRowBuilder,
-  ButtonBuilder,
-  type ButtonInteraction,
-  ButtonStyle,
-  type CommandInteraction,
-  EmbedBuilder,
-  Message,
-  type MessageActionRowComponentBuilder,
-  type PartialGroupDMChannel,
-  type TextBasedChannel,
-} from "discord.js";
+import { fromMS, Queue, RepeatMode } from "@rpbey/lava-queue";
+import { Pagination, PaginationResolver } from "@rpbey/pagination";
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, Message, MessageFlags, type ButtonInteraction, type CommandInteraction, type MessageActionRowComponentBuilder, type PartialGroupDMChannel, type TextBasedChannel } from "discord.js";
 
 export type TrackChannel = Exclude<TextBasedChannel, PartialGroupDMChannel>;
 
@@ -256,7 +245,7 @@ export class MusicQueue extends Queue {
     if (!this.currentPlaybackTrack) {
       const pMsg = await interaction.followUp({
         content: queueErrorMessage,
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral,
       });
 
       if (pMsg instanceof Message) {
@@ -268,7 +257,7 @@ export class MusicQueue extends Queue {
     if (this.size === 0) {
       const pMsg = await interaction.followUp({
         content: nowPlayingMessage(this.currentPlaybackTrack.info.title),
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral,
       });
       if (pMsg instanceof Message) {
         setTimeout(() => void this.deleteMessage(pMsg), deleteDelayMsLong);

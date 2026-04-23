@@ -6,7 +6,7 @@
  */
 
 import type { CommandInteraction } from "discord.js";
-import { Discord, Slash, SlashGroup } from "discordx";
+import { Discord, Slash, SlashGroup } from "@rpbey/discordx";
 
 import { lavaPlayerManager } from "../core/manager.js";
 

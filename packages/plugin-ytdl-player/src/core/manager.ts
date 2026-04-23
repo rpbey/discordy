@@ -5,7 +5,7 @@
  * -------------------------------------------------------------------------------------------------------
  */
 
-import type { QueueManager } from "@discordx/music";
+import type { QueueManager } from "@rpbey/music";
 import {
   GuildMember,
   PartialGroupDMChannel,

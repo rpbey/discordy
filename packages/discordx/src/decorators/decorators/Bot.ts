@@ -4,7 +4,7 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import { type ClassMethodDecorator, Modifier } from "@discordx/internal";
+import { type ClassMethodDecorator, Modifier } from "@rpbey/internal";
 
 import {
   DApplicationCommand,

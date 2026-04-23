@@ -5,10 +5,10 @@
  * -------------------------------------------------------------------------------------------------------
  */
 
-import { RequestType } from "@discordx/lava-player";
-import type { Queue } from "@discordx/lava-queue";
+import { RequestType } from "@rpbey/lava-player";
+import type { Queue } from "@rpbey/lava-queue";
 import { EmbedBuilder, type CommandInteraction } from "discord.js";
-import { Discord, Slash, SlashGroup } from "discordx";
+import { Discord, Slash, SlashGroup } from "@rpbey/discordx";
 
 import { lavaPlayerManager } from "../../core/index.js";
 import type { Lyrics } from "./types.js";

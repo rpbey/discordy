@@ -8,9 +8,9 @@ import {
   Node,
   type VoiceServerUpdate,
   type VoiceStateUpdate,
-} from "@discordx/lava-player";
+} from "@rpbey/lava-player";
 import { GatewayDispatchEvents } from "discord.js";
-import type { Client } from "discordx";
+import type { Client } from "@rpbey/discordx";
 
 export function getNode(client: Client): Node {
   const nodeX = new Node({

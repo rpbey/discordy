@@ -16,7 +16,7 @@ import {
   type GuardFunction,
   type Next,
   SimpleCommandMessage,
-} from "discordx";
+} from "@rpbey/discordx";
 
 export type PermissionHandler = CommandInteraction | SimpleCommandMessage;
 

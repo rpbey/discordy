@@ -5,13 +5,13 @@
  * -------------------------------------------------------------------------------------------------------
  */
 
-import { RepeatMode } from "@discordx/music";
+import { RepeatMode } from "@rpbey/music";
 import {
   PartialGroupDMChannel,
   type ButtonInteraction,
   type CommandInteraction,
 } from "discord.js";
-import { ButtonComponent, Discord, Slash, SlashGroup } from "discordx";
+import { ButtonComponent, Discord, Slash, SlashGroup } from "@rpbey/discordx";
 
 import { musicPlayerManager } from "../core/index.js";
 import { showQueue } from "../utils/index.js";

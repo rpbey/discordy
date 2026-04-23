@@ -4,7 +4,7 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import type { ClassDecoratorEx } from "@discordx/internal";
+import type { ClassDecoratorEx } from "@rpbey/internal";
 
 import { DDiscord, MetadataStorage } from "../../index.js";
 

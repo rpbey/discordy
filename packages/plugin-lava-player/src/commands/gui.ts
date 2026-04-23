@@ -5,13 +5,13 @@
  * -------------------------------------------------------------------------------------------------------
  */
 
-import { RepeatMode } from "@discordx/lava-queue";
+import { RepeatMode } from "@rpbey/lava-queue";
 import {
   PartialGroupDMChannel,
   type ButtonInteraction,
   type CommandInteraction,
 } from "discord.js";
-import { ButtonComponent, Discord, Slash, SlashGroup } from "discordx";
+import { ButtonComponent, Discord, Slash, SlashGroup } from "@rpbey/discordx";
 
 import { lavaPlayerManager } from "../core/manager.js";
 

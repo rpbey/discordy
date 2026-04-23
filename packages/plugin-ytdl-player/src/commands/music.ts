@@ -5,7 +5,7 @@
  * -------------------------------------------------------------------------------------------------------
  */
 
-import { Discord, SlashGroup } from "discordx";
+import { Discord, SlashGroup } from "@rpbey/discordx";
 
 @Discord()
 @SlashGroup({ description: "music", name: "music" })

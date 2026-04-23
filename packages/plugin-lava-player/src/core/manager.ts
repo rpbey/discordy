@@ -5,7 +5,7 @@
  * -------------------------------------------------------------------------------------------------------
  */
 
-import type { QueueManager } from "@discordx/lava-queue";
+import type { QueueManager } from "@rpbey/lava-queue";
 import {
   GuildMember,
   PartialGroupDMChannel,

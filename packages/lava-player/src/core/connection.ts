@@ -135,7 +135,7 @@ export class Connection<T extends BaseNode = BaseNode> {
 
     const headers: Headers = {
       Authorization: this.node.password,
-      "Client-Name": "@discordx/lava-player",
+      "Client-Name": "@rpbey/lava-player",
       "User-Id": this.node.userId,
     };
 

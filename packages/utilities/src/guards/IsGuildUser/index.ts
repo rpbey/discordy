@@ -28,7 +28,7 @@ import {
   type Client,
   type GuardFunction,
   SimpleCommandMessage,
-} from "discordx";
+} from "@rpbey/discordx";
 
 export type IsGuildUserArg =
   | ArgsOf<

@@ -11,7 +11,7 @@ import {
   DSimpleCommand,
   MetadataStorage,
   Modifier,
-} from "discordx";
+} from "@rpbey/discordx";
 
 export interface ICategory {
   category?: string;

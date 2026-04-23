@@ -17,10 +17,8 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "moduleDetection": "force",
-    "verbatimModuleSyntax": true
+    "verbatimModuleSyntax": true,
+    "types": ["bun"]
   },
-  "exclude": [
-    "examples",
-    "dist"
-  ]
+  "exclude": ["examples", "dist"]
 }

@@ -8,7 +8,7 @@ import {
   type ClassDecoratorEx,
   type ClassMethodDecorator,
   Modifier,
-} from "@discordx/internal";
+} from "@rpbey/internal";
 
 import {
   DApplicationCommand,

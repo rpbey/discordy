@@ -8,7 +8,7 @@
 
 import { EventEmitter } from "node:events";
 import { Worker } from "node:worker_threads";
-import { dirname, isESM } from "@discordx/importer";
+import { dirname, isESM } from "@rpbey/importer";
 import type { Client } from "discord.js";
 
 import {

@@ -1,31 +1,33 @@
 {
-  "name": "root",
-  "version": "0.0.0",
+  "name": "discordy",
+  "version": "0.1.0",
   "private": true,
-  "description": "Create a discord bot with TypeScript and Decorators!",
+  "description": "Bun-first fork of discordx — decorator-based Discord.js framework, consolidated as an @rpbey/* scoped workspace.",
   "keywords": [
     "api",
     "bot",
     "client",
     "decorators",
     "discord",
+    "discordy",
     "framework",
     "library",
+    "rpbey",
     "tool",
     "typescript"
   ],
-  "homepage": "https://discordx.js.org",
+  "homepage": "https://github.com/rpbey/discordy",
   "bugs": {
-    "url": "https://github.com/discordx-ts/discordx/issues",
-    "email": "vijayymmeena@gmail.com"
+    "url": "https://github.com/rpbey/discordy/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/discordx-ts/discordx"
+    "url": "https://github.com/rpbey/discordy"
   },
   "license": "Apache-2.0",
   "contributors": [
-    "Vijay Meena <vijayymmeena@gmail.com> (https://github.com/vijayymmeena)"
+    "Vijay Meena <vijayymmeena@gmail.com> (https://github.com/vijayymmeena)",
+    "rpbey (https://github.com/rpbey)"
   ],
   "scripts": {
     "build": "turbo run build",

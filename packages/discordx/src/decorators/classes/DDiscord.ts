@@ -4,8 +4,8 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import { DIService } from "@discordx/di";
-import { Decorator } from "@discordx/internal";
+import { DIService } from "@rpbey/di";
+import { Decorator } from "@rpbey/internal";
 
 import type {
   DApplicationCommand,

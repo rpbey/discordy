@@ -9,7 +9,7 @@ import {
   ApplicationCommandOptionType,
   type CommandInteraction,
 } from "discord.js";
-import { Discord, Slash, SlashGroup, SlashOption } from "discordx";
+import { Discord, Slash, SlashGroup, SlashOption } from "@rpbey/discordx";
 
 import { lavaPlayerManager } from "../core/manager.js";
 

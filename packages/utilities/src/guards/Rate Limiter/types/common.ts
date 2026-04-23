@@ -5,7 +5,7 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import type { CommandInteraction } from "discord.js";
-import type { Awaitable, SimpleCommandMessage } from "discordx";
+import type { Awaitable, SimpleCommandMessage } from "@rpbey/discordx";
 
 export interface RateLimitOption<
   T extends CommandInteraction | SimpleCommandMessage,

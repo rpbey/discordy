@@ -4,11 +4,12 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import type {
+import {
   CommandInteraction,
   MessageComponentInteraction,
+  MessageFlags,
 } from "discord.js";
-import { type GuardFunction, SimpleCommandMessage } from "discordx";
+import { type GuardFunction, SimpleCommandMessage } from "@rpbey/discordx";
 
 import { dayjs } from "../../useful/time-format.js";
 import { type RateLimitOption, TIME_UNIT, TimedSet } from "./index.js";
@@ -61,10 +62,11 @@ export function RateLimit<T extends CommandInteraction | SimpleCommandMessage>(
     content: string,
     ephemeral: boolean,
   ): Promise<void> {
+    const flags = ephemeral ? MessageFlags.Ephemeral : undefined;
     if (interaction.replied) {
       await interaction.followUp({
         content,
-        ephemeral,
+        flags,
       });
       return;
     }
@@ -76,7 +78,7 @@ export function RateLimit<T extends CommandInteraction | SimpleCommandMessage>(
 
     await interaction.reply({
       content,
-      ephemeral,
+      flags,
     });
   }
 

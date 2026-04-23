@@ -1,4 +1,4 @@
-import type { Track } from "@discordx/music";
+import type { Track } from "@rpbey/music";
 import type { PartialGroupDMChannel, TextBasedChannel, User } from "discord.js";
 
 export interface MyTrack extends Track {

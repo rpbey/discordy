@@ -5,9 +5,9 @@
  * -------------------------------------------------------------------------------------------------------
  */
 
-import { Node, QueueManager } from "@discordx/music";
+import { Node, QueueManager } from "@rpbey/music";
 import type { Events } from "discord.js";
-import { Discord, Once, type ArgsOf, type Client } from "discordx";
+import { Discord, Once, type ArgsOf, type Client } from "@rpbey/discordx";
 
 import { musicPlayerManager } from "../core/manager.js";
 

@@ -5,12 +5,8 @@
  * -------------------------------------------------------------------------------------------------------
  */
 
-import { Pagination, PaginationResolver } from "@discordx/pagination";
-import {
-  type ButtonInteraction,
-  type CommandInteraction,
-  Message,
-} from "discord.js";
+import { Pagination, PaginationResolver } from "@rpbey/pagination";
+import { Message, MessageFlags, type ButtonInteraction, type CommandInteraction } from "discord.js";
 
 import type { MusicQueue } from "../core/index.js";
 import { deleteMessage, fromMS } from "./index.js";
@@ -23,7 +19,7 @@ export async function showQueue(
   if (!currentTrack) {
     const pMsg = await interaction.followUp({
       content: "> could not process queue atm, try later!",
-      ephemeral: true,
+      flags: MessageFlags.Ephemeral,
     });
     if (pMsg instanceof Message) {
       setTimeout(() => void deleteMessage(pMsg), 3000);

@@ -10,7 +10,7 @@ import {
   MetadataStorage,
   type MethodDecoratorEx,
   Modifier,
-} from "discordx";
+} from "@rpbey/discordx";
 
 export function Description(description: string): MethodDecoratorEx {
   return (target, key, descriptor?: PropertyDescriptor) => {

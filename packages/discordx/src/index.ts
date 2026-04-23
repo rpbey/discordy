@@ -5,8 +5,8 @@
  * -------------------------------------------------------------------------------------------------------
  */
 
-export * from "@discordx/di";
-export * from "@discordx/internal";
+export * from "@rpbey/di";
+export * from "@rpbey/internal";
 export * from "./Client.js";
 export * from "./classes/index.js";
 export * from "./decorators/index.js";

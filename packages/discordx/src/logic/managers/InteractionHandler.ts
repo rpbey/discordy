@@ -5,7 +5,7 @@
  * -------------------------------------------------------------------------------------------------------
  */
 
-import { DIService } from "@discordx/di";
+import { DIService } from "@rpbey/di";
 import {
   type AnySelectMenuInteraction,
   ApplicationCommandOptionType,

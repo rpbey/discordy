@@ -10,7 +10,7 @@ import {
   type GetPlayer,
   type Node,
   type OPEvent,
-} from "@discordx/lava-player";
+} from "@rpbey/lava-player";
 import { Collection, type Snowflake } from "discord.js";
 
 import { Queue } from "./queue.js";
