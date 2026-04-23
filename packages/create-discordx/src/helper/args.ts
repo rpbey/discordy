@@ -49,11 +49,10 @@ export function ParseArgs(argv: string[]): Args {
 }
 
 export const HELP_TEXT = `
-create-discordx — scaffold a discordy (Bun-first discordx fork) bot
+@rpbey/create-discordx — scaffold a discordy (Bun-first discordx fork) bot
 
 USAGE
-  bun create discordx [name] [flags]
-  bunx create-discordx [name] [flags]
+  bunx @rpbey/create-discordx [name] [flags]
 
 FLAGS
   -t, --template <name>    Template to use (default: basic)
@@ -69,7 +68,7 @@ FLAGS
   -v, --version            Print version
 
 EXAMPLES
-  bun create discordx my-bot
-  bun create discordx my-bot --template basic --with-ytdl --with-pagination --no-git
-  bunx create-discordx --help
+  bunx @rpbey/create-discordx my-bot
+  bunx @rpbey/create-discordx my-bot --template basic --with-ytdl --with-pagination --no-git
+  bunx @rpbey/create-discordx --help
 `;

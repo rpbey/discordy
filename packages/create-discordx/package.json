@@ -1,6 +1,6 @@
 {
-  "name": "create-discordx",
-  "version": "0.1.0",
+  "name": "@rpbey/create-discordx",
+  "version": "0.1.1",
   "description": "Scaffold a Bun-first discordy (discordx fork) bot with one command",
   "keywords": [
     "bot",
@@ -55,7 +55,8 @@
     "bun": ">=1.2.0"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "registry": "https://npm.pkg.github.com"
   },
   "devDependencies": {
     "@types/prompts": "^2.4.9",
