@@ -1,6 +1,6 @@
 {
   "name": "@rpbey/plugin-lava-player",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": false,
   "description": "Fully-featured Discord music player leveraging the power of Lavalink",
   "keywords": [

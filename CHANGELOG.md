@@ -45,3 +45,19 @@ First release under the `@rpbey/*` npm scope. Initial Bun-first fork of [`discor
 ### Upstream
 
 Fork of [discordx-ts/discordx](https://github.com/discordx-ts/discordx). Core feature parity tracked with upstream; the only intentional divergence is the Bun-native rewrites and the `@rpbey/*` namespace.
+
+## 0.1.1 — 2026-04-23
+
+### Fixed
+
+- **discord.js deduplication** — bumped `discord.js` devDep from `^14.25.1` to `^14.26.3` across `discordx`, `lava-queue`, `music`, `pagination`, `plugin-lava-player`, `plugin-ytdl-player`, `utilities`. Fixes an `InvalidClientInstance` warning from `discord-player` when a parent monorepo pinned a different 14.x version, which forced two discord.js copies into the resolver.
+- **peer dependency ranges** — aligned `@rpbey/*` peer deps to `>=0.1.0` in `lava-queue`, `music`, `plugin-lava-player`, `utilities`. Previous pins (`>=2.2.0` etc.) pointed at pre-fork versions that never existed on the @rpbey scope and caused `bun install` to query npmjs.com with a 404.
+- **pre-commit hook** — scoped `turbo run build` to `--filter=!./docs` so the docusaurus workspace doesn't break local commits when its CLI is absent.
+
+### Chore
+
+- Dropped the nested `packages/discordy/bun.lock` — regenerated on demand for standalone dev, but absent when consumed as a sub-workspace of a parent monorepo so outer resolution drives.
+
+### Note
+
+`@rpbey/create-discordx` publishes as `0.1.2` (already had `0.1.1` from the earlier scope rebrand).

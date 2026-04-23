@@ -1,6 +1,6 @@
 {
   "name": "@rpbey/discordx",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": false,
   "description": "Create a discord bot with TypeScript and Decorators!",
   "keywords": [

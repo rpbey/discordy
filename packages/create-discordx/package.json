@@ -1,6 +1,6 @@
 {
   "name": "@rpbey/create-discordx",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Scaffold a Bun-first discordy (discordx fork) bot with one command",
   "keywords": [
     "bot",
