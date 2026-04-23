@@ -1,65 +1,47 @@
-<div>
-  <p align="center">
-    <a href="https://discordx.js.org" target="_blank" rel="nofollow">
-      <img src="https://discordx.js.org/discordx.svg" width="546" />
-    </a>
-  </p>
-  <div align="center" class="badge-container">
-    <a href="https://discordx.js.org/discord"
-      ><img
-        src="https://img.shields.io/discord/874802018361950248?color=5865F2&logo=discord&logoColor=white"
-        alt="Discord server"
-    /></a>
-    <a href="https://www.npmjs.com/package/@discordx/di"
-      ><img
-        src="https://img.shields.io/npm/v/@discordx/di.svg?maxAge=3600"
-        alt="NPM version"
-    /></a>
-    <a href="https://www.npmjs.com/package/@discordx/di"
-      ><img
-        src="https://img.shields.io/npm/dt/@discordx/di.svg?maxAge=3600"
-        alt="NPM downloads"
-    /></a>
-    <a href="https://github.com/discordx-ts/discordx/actions"
-      ><img
-        src="https://github.com/discordx-ts/discordx/workflows/Build/badge.svg"
-        alt="Build status"
-    /></a>
-    <a href="https://www.paypal.me/vijayxmeena"
-      ><img
-        src="https://img.shields.io/badge/donate-paypal-F96854.svg"
-        alt="paypal"
-    /></a>
-  </div>
-  <p align="center">
-    <b> Create a discord bot with TypeScript and Decorators! </b>
-  </p>
-</div>
+# @rpbey/di
 
-# 📖 Introduction
+> Dependency-injection bridge for **discordy**. Adapters for `tsyringe` and `typedi`.
 
-Dependency injection service with support for agnostic IOC.
-
-# 💻 Installation
-
-Version 16.6.0 or newer of Node.js is required
-
-```
-npm install @discordx/di
-yarn add @discordx/di
+```bash
+bun add @rpbey/di tsyringe reflect-metadata
 ```
 
-# 📜 Documentation
+## Usage
 
-- [discordx.js.org](https://discordx.js.org)
-- [Tutorials (dev.to)](https://dev.to/vijayymmeena/series/14317)
+```ts
+import "reflect-metadata";
+import { container } from "tsyringe";
+import { tsyringeDependencyRegistryEngine } from "@rpbey/di";
+import { DIService } from "@rpbey/discordx";
 
-# ☎️ Need help?
+DIService.engine = tsyringeDependencyRegistryEngine.setInjector(container);
+```
 
-- [Check frequently asked questions](https://discordx.js.org/docs/faq)
-- [Check examples](https://github.com/discordx-ts/discordx/tree/main/packages/discordx/examples)
-- Ask in the community [Discord server](https://discordx.js.org/discord)
+Once registered, every class decorated with `@Discord` is resolved through the container:
 
-# 💖 Thank you
+```ts
+import { injectable } from "tsyringe";
+import { Discord, Slash } from "@rpbey/discordx";
 
-You can support [discordx](https://www.npmjs.com/package/discordx) by giving it a [GitHub](https://github.com/discordx-ts/discordx) star.
+@Discord()
+@injectable()
+class Commands {
+  constructor(private readonly db: DatabaseService) {}
+
+  @Slash({ name: "stats" })
+  async stats(i: CommandInteraction) {
+    const count = await this.db.userCount();
+    await i.reply(`Users: ${count}`);
+  }
+}
+```
+
+## Exports
+
+- `tsyringeDependencyRegistryEngine`
+- `typeDiDependencyRegistryEngine`
+- `DependencyRegistryEngine` (base class)
+
+## License
+
+Apache-2.0
